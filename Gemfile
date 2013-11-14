@@ -31,10 +31,6 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem "devise", "3.2.0"
-
-gem "rails_admin", "0.5.0"
-
 gem "rubypress", "1.0.2"
 
 group :doc do
