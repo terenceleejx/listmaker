@@ -1,12 +1,23 @@
 <div class="row">
   <h2>China This Week</h2>
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% posts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 200, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date"]) %>
+  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 200, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
   <% t = (Time.now - 604800).to_date %>
-  <% posts.each do |post| %>
-    <% if post["terms"].any? {|x| x["name"] == "China"} == true && post["post_date"].to_date >= t  %>
-      <%= post["post_title"] %><br>
-      <%= post["post_date"].to_date() %><br><br>
+  <% wpposts.each do |wppost| %>
+    <% if wppost["terms"].any? {|x| x["name"] == "China"} == true && wppost["post_date"].to_date >= t  %>
+      <%= wppost["post_title"] %><br>
+      <% 
+	  response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
+  		headers: { 
+   		 "X-Mashape-Authorization" => "2zPKOatW4wEiFAoWTgnmonm6G9T3WwEl"
+  	  },
+  	  parameters: { 
+    	"url" => wppost["link"]
+  	  }
+  	  %>
+	  <%= response.body %>
+  	  <br>
+      <%= wppost["post_date"].to_date() %><br><br>
     <% end %>
   <% end %>
 </div>
