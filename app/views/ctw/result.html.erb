@@ -1,2 +1,12 @@
-<% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-<%= wp.getOptions%>
+<div class="row">
+  <h2>China This Week</h2>
+  <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
+  <% posts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 20, orderby: "date", order: "DESC"}, fields: ["post_title", "terms"]) %>
+  <% posts.each do |post| %>
+    <% if post["terms"].any? {|x| x["name"] == "China"} == true %>
+      <%= post["post_title"] %><br>
+    <% end %>
+  <% end %>
+</div>
+
+<!-- , "post_date", "post_content", "link" -->
