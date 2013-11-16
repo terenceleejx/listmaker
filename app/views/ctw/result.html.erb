@@ -1,12 +1,14 @@
 <div class="row">
   <h2>China This Week</h2>
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% posts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 20, orderby: "date", order: "DESC"}, fields: ["post_title", "terms"]) %>
+  <% posts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 200, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date"]) %>
+  <% t = (Time.now - 604800).to_date %>
   <% posts.each do |post| %>
-    <% if post["terms"].any? {|x| x["name"] == "China"} == true %>
+    <% if post["terms"].any? {|x| x["name"] == "China"} == true && post["post_date"].to_date >= t  %>
       <%= post["post_title"] %><br>
+      <%= post["post_date"].to_date() %><br><br>
     <% end %>
   <% end %>
 </div>
 
-<!-- , "post_date", "post_content", "link" -->
+<!-- , "post_content", "link" -->
