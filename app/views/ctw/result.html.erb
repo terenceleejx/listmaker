@@ -1,12 +1,12 @@
-<div class="row">
+<div class="result row">
   <h2>China This Week</h2>
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 120, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
+  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 5, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
   <% t = (Time.now - 604800).to_date %>
   <% post_count = 1 %>
   <% wpposts.each do |wppost| %>
     <% if wppost["terms"].any? {|x| x["name"] == "China"} == true && wppost["post_date"].to_date >= t  %>
-      <h3>
+      <h3 class="headline" style="cursor: pointer;">
       	<%= post_count %>.&nbsp<%= wppost["post_title"] %>
       </h3>
       <br>
@@ -22,14 +22,23 @@
   	  %>
 	  <% wpsummary = response.body["summary"] %>
 	  <% if wpsummary.nil? == false %>
-	    <%= wpsummary[0] %><br>
-	    <%= wpsummary[1] %><br>
-	    <%= wpsummary[2] %><br>
+	    <%= wpsummary[0] %><br><br>
+	    <%= wpsummary[1] %><br><br>
+	    <%= wpsummary[2] %><br><br>
+	  <% else %>
+	    Opps. Article summarization failed. Add it manually in Wordpress later.
 	  <% end %>
       <%= wppost["post_date"].to_date() %><br><br>
     <% end %>
-
   <% end %>
 </div>
+
+<%= javascript_tag do %>
+  $(document).ready(function(){
+    $(".headline").click(function(){
+	  $(this).toggleClass("headline-selected");
+	});
+  });
+<% end %>
 
 <!-- , "post_content", "link" -->
