@@ -22,9 +22,9 @@
   	  %>
 	  <% wpsummary = response.body["summary"] %>
 	  <% if wpsummary.nil? == false %>
-	    <%= wpsummary[0] %><br><br>
-	    <%= wpsummary[1] %><br><br>
-	    <%= wpsummary[2] %><br><br>
+	    <span class ="summary"><%= wpsummary[0] %></span><br><br>
+	    <span class ="summary"><%= wpsummary[1] %></span><br><br>
+	    <span class ="summary"><%= wpsummary[2] %></span><br><br>
 	  <% else %>
 	    Opps. Article summarization failed. Add it manually in Wordpress later.
 	  <% end %>
@@ -36,8 +36,11 @@
 <%= javascript_tag do %>
   $(document).ready(function(){
     $(".headline").click(function(){
-	  $(this).toggleClass("headline-selected");
-	});
+	    $(this).toggleClass("headline-selected");
+	  });
+    $(".summary").click(function(){
+      $(this).toggleClass("summary-selected");
+    });
   });
 <% end %>
 
