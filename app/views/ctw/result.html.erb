@@ -38,6 +38,9 @@
     $(".headline").click(function(){
 	    $(this).toggleClass("headline-selected");
       $(this).nextUntil("h3").toggleClass("summary-enabled");
+      if ($(this).nextUntil("h3").hasClass("summary-selected")) {
+        $(this).nextUntil("h3").removeClass("summary-selected");
+      }
 	  });
   });
   $(document.body).on("click", "span.summary.summary-enabled", function(){
