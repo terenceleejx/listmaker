@@ -37,7 +37,7 @@
   $(document).ready(function(){
     $(".headline").click(function(){
 	    $(this).toggleClass("headline-selected");
-      $(".summary").toggleClass("summary-enabled");
+      $(this).nextUntil("h3").toggleClass("summary-enabled");
 	  });
   });
   $(document.body).on("click", "span.summary.summary-enabled", function(){
