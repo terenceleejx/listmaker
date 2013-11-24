@@ -1,7 +1,7 @@
 <div class="result row">
   <h2>China This Week</h2>
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 5, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
+  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 8, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
   <% t = (Time.now - 604800).to_date %>
   <% post_count = 1 %>
   <% wpposts.each do |wppost| %>
@@ -22,9 +22,9 @@
   	  %>
 	  <% wpsummary = response.body["summary"] %>
 	  <% if wpsummary.nil? == false %>
-	    <span class ="summary"><%= wpsummary[0] %></span><br><br>
-	    <span class ="summary"><%= wpsummary[1] %></span><br><br>
-	    <span class ="summary"><%= wpsummary[2] %></span><br><br>
+	    <span class ="summary" style="cursor: pointer;"><%= wpsummary[0] %></span><br><br>
+	    <span class ="summary" style="cursor: pointer;"><%= wpsummary[1] %></span><br><br>
+	    <span class ="summary" style="cursor: pointer;"><%= wpsummary[2] %></span><br><br>
 	  <% else %>
 	    Opps. Article summarization failed. Add it manually in Wordpress later.
 	  <% end %>
@@ -37,11 +37,12 @@
   $(document).ready(function(){
     $(".headline").click(function(){
 	    $(this).toggleClass("headline-selected");
+      $(".summary").toggleClass("summary-enabled");
 	  });
-    $(".summary").click(function(){
+  });
+  $(document.body).on("click", "span.summary.summary-enabled", function(){
       $(this).toggleClass("summary-selected");
     });
-  });
 <% end %>
 
 <!-- , "post_content", "link" -->
