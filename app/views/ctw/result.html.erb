@@ -1,7 +1,7 @@
 <div class="result row">
   <h2>China This Week</h2>
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 8, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
+  <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 25, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
   <% t = (Time.now - 604800).to_date %>
   <% post_count = 1 %>
   <% wpposts.each do |wppost| %>
@@ -31,6 +31,7 @@
       <%= wppost["post_date"].to_date() %><br><br>
     <% end %>
   <% end %>
+  <p class="submit">Submit</p>
 </div>
 
 <%= javascript_tag do %>
@@ -44,8 +45,12 @@
 	  });
   });
   $(document.body).on("click", "span.summary.summary-enabled", function(){
-      $(this).toggleClass("summary-selected");
-    });
+    $(this).toggleClass("summary-selected");
+  });
+ $(document.body).on("click", ".submit", function(){
+    var output = $(".headline-selected").html(); // can't use this cos html returns one element only.
+    console.log(output);
+  });
 <% end %>
 
 <!-- , "post_content", "link" -->
