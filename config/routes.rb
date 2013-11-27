@@ -1,6 +1,7 @@
 Listmaker::Application.routes.draw do
   root 'ctw#login'
   post 'ctw/result'
+  post 'ctw/complete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -5,4 +5,6 @@ class CtwController < ApplicationController
 	    @username = params[:username]
 	    @password = params[:password]
 	end
+	def complete
+	end
 end
