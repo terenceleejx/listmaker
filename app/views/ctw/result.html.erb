@@ -3,14 +3,12 @@
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
   <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 10, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
   <% t = (Time.now - 604800).to_date %>
-  <% post_count = 1 %>
   <% wpposts.each do |wppost| %>
     <% if wppost["terms"].any? {|x| x["name"] == "China"} == true && wppost["post_date"].to_date >= t  %>
-      <h3 class="headline" style="cursor: pointer;">
-      	<%= post_count %>.&nbsp<%= wppost["post_title"] %>
+      <h3 class="headline" style="cursor: pointer;" value="<%= wppost["link"] %>">
+      	<%= wppost["post_title"] %>
       </h3>
       <br>
-      <% post_count += 1 %>
       <% 
 	  response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
   		headers: { 
@@ -64,16 +62,29 @@
     var CTWLength = $(".headline-selected").length;
     var wpTitle = CTWLength + " must-read tech stories in China this week";
     var wpSummary = "<p>" + $("#wpSummary").val() + "</p>";
-
-
+ 
+    // runs through DOM to add selected elements
+    var headlineCount = 1
     var wpList = "";
     $("[class*='selected']").each(function() {
-      var wpList1 = $(this).text();
+      if ($(this).hasClass("headline-selected")) {
+        var wpList1 = "<hr /><h3>" + headlineCount + ". " + "<a href='" + $(this).attr("value") + $(this).text() + "</a>" + "</h3>";
+        headlineCount = headlineCount + 1;
+      } else {
+        var wpList1 = "<p>" + $(this).text() + "</p>";
+      }
       wpList = wpList + wpList1;
     });
 
-    var wpBody = "<img alt='CTW - China tech news this week' src='http://cdn.techinasia.com/wp-content/uploads/2013/03/China-tech-news-this-week-v8.jpg' width='1000' height='593' />" + wpSummary + "<p>That’s all for this week, folks! For our full spread of China coverage, you might like to subscribe to our <a href='http://www.techinasia.com/tag/china/feed/' >China RSS feed</a>.</p>";
-    alert(wpList);
+    // combine all generated HTML together
+    var wpBody = "<img alt='CTW - China tech news this week' src='http://cdn.techinasia.com/wp-content/uploads/2013/03/China-tech-news-this-week-v8.jpg' width='1000' height='593' />" + wpSummary + wpList + "<hr /><p>That’s all for this week, folks! For our full spread of China coverage, you might like to subscribe to our <a href='http://www.techinasia.com/tag/china/feed/' >China RSS feed</a>.</p>";
+
+    // AJAX request to send javascript variables to server
+
+    
+
+    // submit draft to WordPress
+    // <% wp.newPost(blog_id: "0", content: {post_title: }) %>
   });
 
 <% end %>
