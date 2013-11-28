@@ -31,9 +31,16 @@
   <% end %>
 
   <hr />
+  <form>
+    <textarea id="wpsummary" rows="28" cols="5">Type the first paragraph of your article here.</textarea>
+    <button type="button" value="Save">Save</button>
+  </form>
 
   <%= form_tag("/ctw/complete", method: "post") do %>
-    <%= text_area_tag(:wpSummary, "Type the first paragraph of your article here.", size: "28x5") %>
+    <%= hidden_field_tag(:wptitle) %>
+    <%= hidden_field_tag(:wpbody) %>
+    <%= hidden_field_tag(:username, @username) %>
+    <%= hidden_field_tag(:password, @password) %>
     <%= submit_tag("Submit") %>
   <% end %>
 
@@ -57,11 +64,11 @@
     $(this).toggleClass("summary-selected");
   });
 
-  // creates HTML code on pressing Submit
-  $(document.body).on("click", "input[value='Submit']", function(){
+  // creates HTML code on pressing Save
+  $(document.body).on("click", "button[value='Save']", function(){
     var CTWLength = $(".headline-selected").length;
     var wpTitle = CTWLength + " must-read tech stories in China this week";
-    var wpSummary = "<p>" + $("#wpSummary").val() + "</p>";
+    var wpSummary = "<p>" + $("#wpsummary").val() + "</p>";
  
     // runs through DOM to add selected elements
     var headlineCount = 1
@@ -79,12 +86,8 @@
     // combine all generated HTML together
     var wpBody = "<img alt='CTW - China tech news this week' src='http://cdn.techinasia.com/wp-content/uploads/2013/03/China-tech-news-this-week-v8.jpg' width='1000' height='593' />" + wpSummary + wpList + "<hr /><p>That’s all for this week, folks! For our full spread of China coverage, you might like to subscribe to our <a href='http://www.techinasia.com/tag/china/feed/' >China RSS feed</a>.</p>";
 
-    // AJAX request to send javascript variables to server
-
-    
-
-    // submit draft to WordPress
-    // <% wp.newPost(blog_id: "0", content: {post_title: }) %>
+    $("#wptitle").val(wpTitle);
+    $("#wpbody").val(wpBody);
   });
 
 <% end %>
