@@ -2,7 +2,7 @@
   <div class="result large-9 columns">
     <h2>China This Week</h2>
     <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-    <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 120, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
+    <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 130, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
     <% t = (Time.now - 604800).to_date %>
     <% wpposts.each do |wppost| %>
       <% if wppost["terms"].any? {|x| x["name"] == "China"} == true && wppost["post_date"].to_date >= t  %>
