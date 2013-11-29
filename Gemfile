@@ -36,6 +36,8 @@ gem "rubypress", "1.0.2"
 
 gem "unirest", "1.1.1"
 
+gem 'newrelic_rpm'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
