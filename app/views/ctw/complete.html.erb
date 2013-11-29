@@ -1,5 +1,5 @@
-<div class="result row">
+<div class="row">
   Your article has been drafted on WordPress.
   <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% wp.newPost(blog_id: "0", content: {post_status: "draft", post_title: @wptitle, post_content: @wpbody}) %>
+  <% wp.newPost(:blog_id => "0", :content => {:post_status => "draft", :post_title => @wptitle, :post_content => @wpbody}, :terms_names => {:post_tag => ["China"]}) %>
 </div>
