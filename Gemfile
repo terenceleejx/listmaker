@@ -40,6 +40,8 @@ gem 'newrelic_rpm'
 
 gem "figaro", "0.7.0"
 
+gem "rails_admin", "0.6.0"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -56,3 +58,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+
+gem "devise"
