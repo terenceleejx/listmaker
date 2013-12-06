@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206155107) do
+ActiveRecord::Schema.define(version: 20131206161841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "china_articles", force: true do |t|
     t.string "headline"
-    t.string "summary1"
-    t.string "summary2"
-    t.string "summary3"
+    t.text   "summary1"
+    t.text   "summary2"
+    t.text   "summary3"
     t.string "date"
     t.string "url"
   end
