@@ -2,34 +2,20 @@
   <div class="result large-9 columns">
     <h2>China This Week</h2>
     <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-    <% wpposts = wp.getPosts(blog_id: "0", filter: {post_type: "post", post_status: "published", number: 130, orderby: "date", order: "DESC"}, fields: ["post_title", "terms", "post_date", "link"]) %>
-    <% t = (Time.now - 604800).to_date %>
-    <% wpposts.each do |wppost| %>
-      <% if wppost["terms"].any? {|x| x["name"] == "China"} == true && wppost["post_date"].to_date >= t  %>
-        <h3 class="headline" style="cursor: pointer;" value="<%= wppost["link"] %>">
-        	<%= wppost["post_title"] %>
-        </h3>
-        <br>
-        <% 
-  	  response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
-    		headers: { 
-     		 "X-Mashape-Authorization" => "2zPKOatW4wEiFAoWTgnmonm6G9T3WwEl"
-    	  },
-    	  parameters: { 
-      	"url" => wppost["link"]
-    	  }
-    	  %>
-      <p>Date: <%= wppost["post_date"].to_date() %></p>
-  	  <% wpsummary = response.body["summary"] %>
-  	  <% if wpsummary.nil? == false %>
-  	    <span class ="summary" style="cursor: pointer;"><%= wpsummary[0] %></span><br><br>
-  	    <span class ="summary" style="cursor: pointer;"><%= wpsummary[1] %></span><br><br>
-  	    <span class ="summary" style="cursor: pointer;"><%= wpsummary[2] %></span><br><br>
+    <% @china_articles.each do |china_article| %>
+      <h3 class="headline" style="cursor: pointer;" value="<%= china_article.url %>">
+        <%= china_article.headline %>
+      </h3>
+      <br>
+      <p>Date: <%= china_article.date %></p>
+  	  <% if china_article.summary1 == "nil" %>
+        Opps. Article summarization failed. Add it manually in Wordpress later.
   	  <% else %>
-  	    Opps. Article summarization failed. Add it manually in Wordpress later.
+        <span class ="summary" style="cursor: pointer;"><%= china_article.summary1 %></span><br><br>
+        <span class ="summary" style="cursor: pointer;"><%= china_article.summary2 %></span><br><br>
+        <span class ="summary" style="cursor: pointer;"><%= china_article.summary3 %></span><br><br>
   	  <% end %>
-        <br><br>
-      <% end %>
+      <br><br>
     <% end %>
 
     <hr />
@@ -46,7 +32,7 @@
       <%= submit_tag("Submit") %>
     <% end %>
   </div>
-  <div class="large-3 columns">
+  <div class="large-3 columns" style="font-size:80%">
     <h4>Instructions</h4>
     <ul>
       <li>Click headlines and summaries to select them.</li>

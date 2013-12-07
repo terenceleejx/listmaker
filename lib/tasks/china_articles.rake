@@ -10,11 +10,11 @@ task :china_articles => :environment do
 
   wpposts = wp.getPosts(
   	blog_id: "0", 
-  	filter: {post_type: "post", post_status: "published", number: 130, orderby: "date", order: "DESC"}, 
+  	filter: {post_type: "post", post_status: "published", number: 20, orderby: "date", order: "DESC"}, 
   	fields: ["post_title", "terms", "post_date", "link"]
   )
 
-  t = (Time.now - 604800).to_date
+  t = (Time.now - 1440).to_date
 
   puts "get posts successful"
 
