@@ -1,5 +1,26 @@
 <div class="row">
-  Your article has been drafted on WordPress.
-  <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
-  <% wp.newPost(:blog_id => "0", :content => {:post_status => "draft", :post_title => @wptitle, :post_content => @wpbody}, :terms_names => {:post_tag => ["China"]}) %>
+  <div class="result large-12 columns">
+    <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
+    <% wp.newPost(:blog_id => "0", 
+    			  :content => {:post_status => "draft", :post_title => @wptitle, :post_content => @wpbody}, 
+    			  :terms_names => {:post_tag => ["China"]}
+    			 ) %>
+    <% publish_time = Time.now.to_date.to_s %>
+    <% months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"] %>
+    <% for m in 1..12 %>
+      <% if m < 10 %>
+        <% ms = "0" + m.to_s %>
+      <% else %>
+        <% ms = m.to_s %>
+      <% end %>
+      <% if publish_time.include? "-" + ms + "-" %>  
+        <% publish_time.gsub!(ms, months[m-1]) %>
+      <% end %>
+    <% end %>
+
+    <p>Your article has been drafted on WordPress. <a href="http://www.techinasia.com/wp-admin/edit.php">Check it out</a>.</p><br>
+    <p><strong>Categories:</strong> Asia</p>
+    <p><strong>Tags:</strong> China, China This Week</p>
+    <p><strong>URL:</strong> china-tech-news-<%= publish_time %></p>
+  </div>
 </div>
