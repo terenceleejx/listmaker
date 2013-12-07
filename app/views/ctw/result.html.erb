@@ -3,9 +3,7 @@
     <h2>China This Week</h2>
     <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
     <% @china_articles.each do |china_article| %>
-      <h3 class="headline" style="cursor: pointer;" value="<%= china_article.url %>">
-        <%= china_article.headline %>
-      </h3>
+      <h3 class="headline" style="cursor: pointer;" value="<%= china_article.url %>"><%= china_article.headline %></h3>
       <br>
       <p>Date: <%= china_article.date %></p>
   	  <% if china_article.summary1 == "nil" %>
@@ -75,9 +73,11 @@
     var headlineCount = 1
     var wpList = "";
     $("[class*='selected']").each(function() {
+      //inserts headline
       if ($(this).hasClass("headline-selected")) {
-        var wpList1 = "</p><hr /><h3>" + headlineCount + ". " + "<a href='" + $(this).attr("value") + $(this).text() + "</a>" + "</h3><p>";
+        var wpList1 = "</p><hr /><h3>" + headlineCount + ". <a href='" + $(this).attr("value") + "'>" + $(this).text() + "</a></h3><p>";
         headlineCount = headlineCount + 1;
+      //inserts summary
       } else {
         var wpList1 = $(this).text() + " ";
       }
