@@ -14,9 +14,9 @@ task :china_articles => :environment do
   	fields: ["post_title", "terms", "post_date", "link"]
   )
 
-  t = (Time.now - 1440).to_date
+  puts t = (Time.now - 86400).to_date
 
-  puts "get posts successful"
+  puts wpposts.count.to_s + " posts selected"
 
   wpposts.each do |wppost|
   	if wppost["terms"].any? {|x| x["name"] == "China"} == true and 
