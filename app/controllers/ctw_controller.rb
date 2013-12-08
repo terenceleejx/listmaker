@@ -4,7 +4,7 @@ class CtwController < ApplicationController
 	def result
 	    @username = params[:username]
 	    @password = params[:password]
-	    @china_articles = ChinaArticle.first(25)
+	    @china_articles = ChinaArticle.order(id: :desc).first(25)
 	end
 	def complete
 	    @wptitle = params[:wptitle]
