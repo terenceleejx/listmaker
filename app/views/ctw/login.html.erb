@@ -1,9 +1,9 @@
 <div class="row">
   <h2>Listmaker</h2>
   <%= form_tag("/ctw/result", method: "post") do %>
-    <%= label_tag(:username, "Username:") %>
+    <%= label_tag(:username, "Wordpress username:") %>
     <%= text_field_tag(:username) %>
-    <%= label_tag(:password, "Password:") %>
+    <%= label_tag(:password, "Wordpress password:") %>
     <%= password_field_tag(:password) %>
     <%= submit_tag("Submit") %>
   <% end %>
