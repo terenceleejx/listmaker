@@ -11,4 +11,4 @@ Here's how it works:
 
 An example of an article created with Listmaker: http://www.techinasia.com/china-tech-news-2013-december-15/
 
-A future version of this app could involve using the Google Analytics API to filter articles according to traffic. This allows users to curate content based on popularity.
+A future version of this app could involve using the Google Analytics API to filter articles according to traffic. This allows users to curate content based on popularity. Want to implement Listmaker for your site? Contact me on LinkedIn: http://sg.linkedin.com/in/terenceleejx.
