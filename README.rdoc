@@ -1,28 +1,12 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Listmaker is a tool customized for technology news website <a href="http://www.techinasia.com">Tech in Asia</a> to create listicles while minimizing the need to do manual formatting in HTML or in Wordpress. The app uses the <a href="http://codex.wordpress.org/XML-RPC_WordPress_API/">XML-RPC Wordpress API</a> and the <a href="https://www.mashape.com/newsco/article-summary-url-or-text-using-ml-and-nlp#!documentation">Article Summary API by Newsco</a>.
 
-Things you may want to cover:
+Here's how it works:
 
-* Ruby version
+* Everyday, it scans Tech in Asia for articles with a certain tag and stores them in a database. The scheduled task also involves summarizing each article.
+* Once a user logs in, he will see a list of relevant articles and their summaries.
+* They can pick which articles and summaries they want to use, key in the intro text, and publish the result as a draft on Wordpress.
+* The user would then log into Wordpress and do some final formatting.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+A future version of this app could involve using the Google Analytics API to filter articles according to traffic. This allows users to curate content based on popularity.
