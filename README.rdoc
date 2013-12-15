@@ -9,4 +9,6 @@ Here's how it works:
 * They can pick which articles and summaries they want to use, key in the intro text, and publish the result as a draft on Wordpress.
 * The user would then log into Wordpress and do some final formatting.
 
+An example of an article created with Listmaker: http://www.techinasia.com/china-tech-news-2013-december-15/
+
 A future version of this app could involve using the Google Analytics API to filter articles according to traffic. This allows users to curate content based on popularity.
