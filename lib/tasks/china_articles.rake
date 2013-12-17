@@ -3,7 +3,8 @@ task :china_articles => :environment do
   wp = Rubypress::Client.new(
   	:host => "techinasia.com", 
   	:username => Figaro.env.techinasia_username, 
-  	:password => Figaro.env.techinasia_password
+  	:password => Figaro.env.techinasia_password,
+    :use_ssl => true
   )
 
   puts "login successful"
@@ -25,7 +26,7 @@ task :china_articles => :environment do
 
        response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
          headers: { 
-           "X-Mashape-Authorization" => "2zPKOatW4wEiFAoWTgnmonm6G9T3WwEl"
+           "X-Mashape-Authorization" => Figaro.env.mashape_auth
          },
          parameters: { 
            "url" => wppost["link"]
