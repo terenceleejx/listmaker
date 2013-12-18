@@ -10,7 +10,7 @@ task :china_articles => :environment do
 
   wpposts = wp.getPosts(
   	blog_id: "0", 
-  	filter: {post_type: "post", post_status: "published", number: 40, orderby: "date", order: "DESC"}, 
+  	filter: {post_type: "post", post_status: "published", number: 20, orderby: "date", order: "DESC"}, 
   	fields: ["post_title", "terms", "post_date", "link"]
   )
 
