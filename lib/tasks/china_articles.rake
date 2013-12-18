@@ -3,8 +3,7 @@ task :china_articles => :environment do
   wp = Rubypress::Client.new(
   	:host => "techinasia.com", 
   	:username => Figaro.env.techinasia_username, 
-  	:password => Figaro.env.techinasia_password,
-    :use_ssl => true
+  	:password => Figaro.env.techinasia_password
   )
 
   puts "login successful"
