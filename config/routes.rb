@@ -1,9 +1,14 @@
 Listmaker::Application.routes.draw do
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  #China this week
   root 'ctw#login'
   post 'ctw/result'
   post 'ctw/complete'
+
+  #Startup list
+  get 'startups/result' => 'startups#result'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
