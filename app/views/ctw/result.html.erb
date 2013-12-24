@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="result large-9 columns">
+  <div class="result large-8 columns">
     <h2>China This Week</h2>
     <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
     <%# test if username or password is correct. If not, exception raised. %>
@@ -17,34 +17,37 @@
   	  <% end %>
       <br><br>
     <% end %>
-
-    <hr />
-    <form>
-      <textarea id="wpsummary" rows="28" cols="5">Type the first paragraph of your article here.</textarea>
-      <button type="button" value="Save">Save</button>
-      Be sure to hit 'save' before you submit.
-    </form>
-
-    <%= form_tag("/ctw/complete", method: "post") do %>
-      <%= hidden_field_tag(:wptitle) %>
-      <%= hidden_field_tag(:wpbody) %>
-      <%= hidden_field_tag(:username, @username) %>
-      <%= hidden_field_tag(:password, @password) %>
-      <%= submit_tag("Submit") %>
-    <% end %>
   </div>
-  <div class="large-3 columns" style="font-size:80%">
-    <h4>Instructions</h4>
-    <ul>
-      <li>Click headlines and summaries to select them.</li>
-      <li>Click again to deselect.</li>
-      <li>More than one summary sentence may be used.</li>
-      <li>Type your intro text for the post</li>
-      <li>Once everything is confirmed, press save.</li>
-      <li>If changes are made after saving, save it again.</li>
-      <li>Press submit to save a draft to Wordpress.</li>
-      <li>SEO and tags must be filled manually.</li>
-    </ul>
+  <div class="large-4 columns" style="position: fixed; right: 20px">
+    <div class ="large-12 columns">
+      <form>
+          <textarea id="wpsummary" placeholder="Type the first paragraph of your article here."></textarea>
+          <button type="button" value="Save">Save</button>
+          Hit 'save' before you submit.
+      </form>
+
+      <%= form_tag("/ctw/complete", method: "post") do %>
+        <%= hidden_field_tag(:wptitle) %>
+        <%= hidden_field_tag(:wpbody) %>
+        <%= hidden_field_tag(:username, @username) %>
+        <%= hidden_field_tag(:password, @password) %>
+        <%= submit_tag("Submit") %>
+      <% end %>
+    </div>
+
+    <div class ="large-12 columns" style="font-size: 80%">
+      <h4>Instructions</h4>
+      <ul>
+        <li>Click headlines and summaries to select them.</li>
+        <li>Click again to deselect.</li>
+        <li>More than one summary sentence may be used.</li>
+        <li>Type your intro text for the post</li>
+        <li>Once everything is confirmed, press save.</li>
+        <li>If changes are made after saving, save it again.</li>
+        <li>Press submit to save a draft to Wordpress.</li>
+        <li>SEO and tags must be filled manually.</li>
+      </ul>
+    </div>
   </div>
 </div>
 
