@@ -6,6 +6,7 @@ Listmaker::Application.routes.draw do
   root 'ctw#login'
   post 'ctw/result'
   post 'ctw/complete'
+  get 'ctw/login-error' => 'ctw#login_error'
 
   #Startup list
   get 'startups/result' => 'startups#result'

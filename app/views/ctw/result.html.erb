@@ -1,8 +1,9 @@
-<br><br><br>
 <div class="row">
   <div class="result large-9 columns">
     <h2>China This Week</h2>
     <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
+    <%# test if username or password is correct. If not, exception raised. %>
+    <% wp.getOptions %>
     <% @china_articles.each do |china_article| %>
       <h3 class="headline" style="cursor: pointer;" value="<%= china_article.url %>"><%= china_article.headline %></h3>
       <br>
