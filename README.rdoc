@@ -1,6 +1,6 @@
 == README
 
-Listmaker is a tool customized for technology news website Tech in Asia(http://www.techinasia.com) to create listicles while minimizing the need to do manual formatting in HTML or in Wordpress. The app uses the XML-RPC Wordpress API(http://codex.wordpress.org/XML-RPC_WordPress_API/) and the Article Summary API by Newsco(https://www.mashape.com/newsco/article-summary-url-or-text-using-ml-and-nlp#!documentation).
+Listmaker is a tool customized for technology news website Tech in Asia(http://www.techinasia.com) to create list articles while minimizing the need to do manual formatting in HTML or in Wordpress. The app uses the XML-RPC Wordpress API(http://codex.wordpress.org/XML-RPC_WordPress_API/) and the Article Summary API by Newsco(https://www.mashape.com/newsco/article-summary-url-or-text-using-ml-and-nlp#!documentation).
 
 Here's how it works:
 

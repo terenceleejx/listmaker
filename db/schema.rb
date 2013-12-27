@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131227123945) do
+ActiveRecord::Schema.define(version: 20131227141602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,13 +39,15 @@ ActiveRecord::Schema.define(version: 20131227123945) do
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
 
   create_table "startups", force: true do |t|
-    t.string   "name"
+    t.string   "headline"
     t.string   "country"
     t.string   "article_url"
     t.string   "date"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "summary1"
+    t.text     "summary2"
+    t.text     "summary3"
   end
 
   create_table "users", force: true do |t|
