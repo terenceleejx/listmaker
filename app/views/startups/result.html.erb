@@ -1,1 +1,8 @@
-Coming soon.
+<div class="row">
+  <div class="result large-8 columns">
+    <h2>Startups</h2>
+      <% @startups.each do |startup| %>
+        <p>###NUMBER. [STARTUP | <%= startup.country %>](<%= startup.article_url %>)</p>
+      <% end %>
+  </div>
+</div>
