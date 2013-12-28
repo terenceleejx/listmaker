@@ -4,7 +4,7 @@
       <div style="font-size:0.9em">
 	      <% @startups.each do |startup| %>
 	        <%# 'next' goes to the next iteration, 'break' exist the loop %>
-	        <% next if (Time.now - 604800).to_date >= Date.parse(startup.date) %>
+	        <% next if (Time.now - 604800).to_date >= Date.parse(startup.date) or startup.headline.include? "startups in Asia that caught" %>
 	        ###NUMBER. [STARTUP | <%= startup.country %>](<a href="<%= startup.article_url %>"><%= startup.article_url %></a>)
 	        <br><br>
 	        <%= startup.summary1 + " " + startup.summary2 + " " + startup.summary3 %>
