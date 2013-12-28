@@ -1,8 +1,17 @@
 <div class="row">
-  <div class="result large-8 columns">
-    <h2>Startups</h2>
-      <% @startups.each do |startup| %>
-        <p>###NUMBER. [STARTUP | <%= startup.country %>](<%= startup.article_url %>)</p>
-      <% end %>
+  <div class="result large-8 columns" style="color:black">
+    <h2>Startups this week</h2>
+      <div style="font-size:0.9em">
+	      <% @startups.each do |startup| %>
+	        <%# 'next' goes to the next iteration, 'break' exist the loop %>
+	        <% next if (Time.now - 604800).to_date >= Date.parse(startup.date) %>
+	        ###NUMBER. [STARTUP | <%= startup.country %>](<a href="<%= startup.article_url %>"><%= startup.article_url %></a>)
+	        <br><br>
+	        <%= startup.summary1 + " " + startup.summary2 + " " + startup.summary3 %>
+	        <br><br>
+	        ***
+	        <br><br>
+	      <% end %>
+	    </div>
   </div>
 </div>
