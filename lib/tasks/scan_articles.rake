@@ -44,7 +44,8 @@ task :scan_articles => :environment do
        puts "China article saved."
 
     # filters for keyword
-    elsif wppost["terms"].any? {|x| x["name"] == "startups" or "startup"} == true and 
+    elsif wppost["terms"].any? {|x| x["name"] == "startups"} == true or
+          wppost["terms"].any? {|x| x["name"] == "startup"} == true and 
           wppost["post_date"].to_date >= t and 
           Startup.exists?(:headline => wppost["post_title"]) == false
 
