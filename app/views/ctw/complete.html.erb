@@ -14,7 +14,7 @@
         <% ms = m.to_s %>
       <% end %>
       <% if publish_time.include? "-" + ms + "-" %>  
-        <% publish_time.gsub!(ms, months[m-1]) %>
+        <% publish_time.gsub!("-" + ms + "-", "-" + months[m-1] + "-") %>
       <% end %>
     <% end %>
 
