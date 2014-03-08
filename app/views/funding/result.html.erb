@@ -1,1 +1,15 @@
-<%= @articles %>
+<div class="row">
+  <div class="result large-8 columns" style="color:black">
+    <h2>Funding last week</h2>
+      <div style="font-size:0.9em">
+	      <% @articles.each do |article| %>
+		        <%# 'next' goes to the next iteration, 'break' exist the loop %>
+		        <% next if (Time.now - 604800).to_date >= article.date || article.funding == false %>
+		        ###NUMBER. [STARTUP | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)
+		        <br><br>
+		        ***
+		        <br><br>
+	      <% end %>
+	    </div>
+  </div>
+</div>
