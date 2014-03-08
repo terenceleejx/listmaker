@@ -1,19 +1,7 @@
-.result {
+.result, .headline, .summary {
 	color: #A0A0A0;
 }
 
-.headline {
-	color: #A0A0A0;
-}
-
-.summary {
-	color: #A0A0A0;
-}
-
-.headline-selected {
-	color: black;
-}
-
-.summary-selected {
+.headline-selected, .summary-selected {
 	color: black;
 }

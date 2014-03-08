@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131227141602) do
+ActiveRecord::Schema.define(version: 20140308073344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: true do |t|
+    t.string  "headline"
+    t.string  "url"
+    t.text    "summary1"
+    t.text    "summary2"
+    t.text    "summary3"
+    t.string  "country"
+    t.boolean "funding"
+    t.boolean "startup"
+    t.date    "date"
+  end
 
   create_table "china_articles", force: true do |t|
     t.string "headline"
@@ -22,7 +34,6 @@ ActiveRecord::Schema.define(version: 20131227141602) do
     t.text   "summary2"
     t.text   "summary3"
     t.string "date"
-    t.string "url"
   end
 
   create_table "rails_admin_histories", force: true do |t|

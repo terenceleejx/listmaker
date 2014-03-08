@@ -11,6 +11,9 @@ Listmaker::Application.routes.draw do
   #Startup list
   get 'startups/result' => 'startups#result'
 
+  #Funding list
+  get 'funding/result' => 'funding#result'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
