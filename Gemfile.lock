@@ -127,7 +127,7 @@ GEM
     remotipart (1.2.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rubypress (1.0.2)
+    rubypress (1.0.4)
     safe_yaml (0.9.7)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -182,7 +182,7 @@ DEPENDENCIES
   pg (= 0.17.0)
   rails (= 4.0.1)
   rails_admin (= 0.6.0)
-  rubypress (= 1.0.2)
+  rubypress (= 1.0.4)
   sass-rails (~> 4.0.0)
   sdoc
   turbolinks

@@ -1,15 +1,28 @@
 <div class="row">
   <div class="result large-8 columns" style="color:black">
     <h2>Funding last week</h2>
-      <div style="font-size:0.9em">
-	      <% @articles.each do |article| %>
-		        <%# 'next' goes to the next iteration, 'break' exist the loop %>
-		        <% next if (Time.now - 604800).to_date >= article.date || article.funding == false %>
-		        ###NUMBER. [STARTUP | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)
-		        <br><br>
-		        ***
-		        <br><br>
-	      <% end %>
-	    </div>
+    <div style="font-size:0.9em">
+    	<p><em>Tags: funding, Funding in Asia, Startup Funding, Weekly Funding News</em></p>
+    	<p><em>HTML code:</em></p>
+    	<%=h "<img class=\"aligncenter size-full wp-image-169099\" alt=\"FUNDING_WEEKLY\" src=\"http://www.techinasia.com/wp-content/uploads/2014/03/FUNDING_WEEKLY.png\" width=\"720\" height=\"363\" /><p>It’s back to work this Monday morning, and here’s a recap on the funding news that took place last week.</p>" %><br><br>
+	    <% @articles.each do |article| %>
+		    <%# 'next' goes to the next iteration, 'break' exist the loop %>
+		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false %>
+		    <strong><a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %>STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
+        <br><br>
+  	    <% if article.summary1 == "nil" %>
+          Opps. Article summarization failed. Add it manually in Wordpress later.
+  	    <% else %>
+  	    	<%=h "<p>" %>
+          <%= article.summary1 %>&nbsp;
+          <%= article.summary2 %>&nbsp;
+          <%= article.summary3 %> (View Techlist profile)
+          <%=h "</p>" %>
+  	    <% end %>
+        <br><br><br>
+	    <% end %>
+	    <%=h "<p><em>" %>(Editing by TKTK)<%=h "</em></p>" %>
+	    <br><br><br>
+	  </div>
   </div>
 </div>

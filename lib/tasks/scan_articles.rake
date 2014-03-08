@@ -10,11 +10,11 @@ task :scan_articles => :environment do
 
   wp_articles = wp.getPosts(
     blog_id: "0", 
-    filter: {post_type: "post", post_status: "publish", number: 40, orderby: "date", order: "DESC"}, 
+    filter: {post_type: "post", post_status: "publish", number: 100, orderby: "date", order: "DESC"}, 
     fields: ["post_title", "terms", "post_date", "link"]
   )
 
-  puts t = (Time.now - 86400).to_date
+  puts t = (Time.now - 604800).to_date
 
   wp_articles.each do |wp_article|
     if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
