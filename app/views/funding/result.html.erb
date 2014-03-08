@@ -5,10 +5,11 @@
     	<p><em>Tags: funding, Funding in Asia, Startup Funding, Weekly Funding News</em></p>
     	<p><em>HTML code:</em></p>
     	<%=h "<img class=\"aligncenter size-full wp-image-169099\" alt=\"FUNDING_WEEKLY\" src=\"http://www.techinasia.com/wp-content/uploads/2014/03/FUNDING_WEEKLY.png\" width=\"720\" height=\"363\" /><p>It’s back to work this Monday morning, and here’s a recap on the funding news that took place last week.</p>" %><br><br>
+    	<% @article_count = 1 %>
 	    <% @articles.each do |article| %>
 		    <%# 'next' goes to the next iteration, 'break' exist the loop %>
 		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false %>
-		    <strong><a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %>STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
+		    <strong><a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %><%= @article_count %>. STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
         <br><br>
   	    <% if article.summary1 == "nil" %>
           Opps. Article summarization failed. Add it manually in Wordpress later.
@@ -20,6 +21,7 @@
           <%=h "</p>" %>
   	    <% end %>
         <br><br><br>
+        <% @article_count += 1 %>
 	    <% end %>
 	    <%=h "<p><em>" %>(Editing by TKTK)<%=h "</em></p>" %>
 	    <br><br><br>
