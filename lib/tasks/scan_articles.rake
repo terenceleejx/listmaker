@@ -8,12 +8,6 @@ task :scan_articles => :environment do
 
   puts "login successful"
 
-  wpposts = wp.getPosts(
-  	blog_id: "0", 
-  	filter: {post_type: "post", post_status: "publish", number: 40, orderby: "date", order: "DESC"}, 
-  	fields: ["post_title", "terms", "post_date", "link"]
-  )
-
   wp_articles = wp.getPosts(
     blog_id: "0", 
     filter: {post_type: "post", post_status: "publish", number: 40, orderby: "date", order: "DESC"}, 
@@ -73,17 +67,17 @@ task :scan_articles => :environment do
   end
 
 
-  wpposts.each do |wppost|
-  	if wppost["terms"].any? {|x| x["name"] == "China"} == true and 
-       wppost["post_date"].to_date >= t and 
-       ChinaArticle.exists?(:headline => wppost["post_title"]) == false
+  wp_articles.each do |wp_article|
+  	if wp_article["terms"].any? {|x| x["name"] == "China"} == true and 
+       wp_article["post_date"].to_date >= t and 
+       ChinaArticle.exists?(:headline => wp_article["post_title"]) == false
 
        response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
          headers: { 
            "X-Mashape-Authorization" => Figaro.env.mashape_auth
          },
          parameters: { 
-           "url" => wppost["link"]
+           "url" => wp_article["link"]
          }
        puts "China article summarized."
        wpsummary = response.body["summary"]
@@ -91,12 +85,12 @@ task :scan_articles => :environment do
          wpsummary = ["nil", "nil", "nil"]
        end
 
-       ChinaArticle.create({:headline => wppost["post_title"], 
+       ChinaArticle.create({:headline => wp_article["post_title"], 
                             :summary1 => wpsummary[0], 
                             :summary2 => wpsummary[1],
                             :summary3 => wpsummary[2],
-                            :date => wppost["post_date"].to_date(),
-                            :url => wppost["link"]
+                            :date => wp_article["post_date"].to_date(),
+                            :url => wp_article["link"]
                           })
        puts "China article saved."
     end

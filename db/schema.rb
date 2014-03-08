@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308073344) do
+ActiveRecord::Schema.define(version: 20140308093442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140308073344) do
     t.text   "summary2"
     t.text   "summary3"
     t.string "date"
+    t.string "url"
   end
 
   create_table "rails_admin_histories", force: true do |t|
