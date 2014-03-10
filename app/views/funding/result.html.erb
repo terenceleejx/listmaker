@@ -9,7 +9,7 @@
 	    <% @articles.each do |article| %>
 		    <%# 'next' goes to the next iteration, 'break' exist the loop %>
 		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false %>
-		    <strong><a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %><%= @article_count %>. STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
+		    <strong><%= @article_count %>. <a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %>STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
         <br><br>
   	    <% if article.summary1 == "nil" %>
           Opps. Article summarization failed. Add it manually in Wordpress later.
