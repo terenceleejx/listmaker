@@ -40,6 +40,8 @@ task :scan_articles => :environment do
           sliced_term = term.fetch("name").gsub!("startups in ", "").gsub("the ", "")
           @startup_country = sliced_term.capitalize
           @is_startup = true
+        else
+          @startup_country = "COUNTRY"
         end
         break if @is_startup == true
       end

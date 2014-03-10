@@ -8,7 +8,7 @@
     	<% @article_count = 1 %>
 	    <% @articles.each do |article| %>
 		    <%# 'next' goes to the next iteration, 'break' exist the loop %>
-		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false %>
+		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false || article.headline.include?("startup funding rounds") || article.startup == false %>
 		    <strong><%= @article_count %>. <a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %>STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
         <br><br>
   	    <% if article.summary1 == "nil" %>
