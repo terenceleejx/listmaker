@@ -1,7 +1,7 @@
 <div class="row">
   <div class="result large-8 columns">
     <h2>China This Week</h2>
-    <% wp = Rubypress::Client.new(:port => 443, :host => "https://www.techinasia.com", :username => @username, :password => @password, :use_ssl => true) %>
+    <% wp = Rubypress::Client.new(:port => 443, :host => "https://www.techinasia.com", :username => @username, :password => @password) %>
     <%# test if username or password is correct. If not, exception raised. %>
     <% wp.getOptions %>
     <% @china_articles.each do |china_article| %>
