@@ -14,8 +14,6 @@ task :scan_articles => :environment do
     fields: ["post_title", "terms", "post_date", "link"]
   )
 
-  puts t = (Time.now - 604800).to_date
-
   wp_articles.each do |wp_article|
     if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
       response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
@@ -27,6 +25,7 @@ task :scan_articles => :environment do
         }
 
       puts "Articles summarized."
+
       wpsummary = response.body["summary"]
 
       if wpsummary.nil? == true
@@ -68,6 +67,7 @@ task :scan_articles => :environment do
     end
   end
 
+  puts "first scanning completed"
 
   wp_articles.each do |wp_article|
   	if wp_article["terms"].any? {|x| x["name"] == "China"} == true and 
