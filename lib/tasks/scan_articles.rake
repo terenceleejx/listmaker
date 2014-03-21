@@ -16,6 +16,8 @@ task :scan_articles => :environment do
     fields: ["post_title", "terms", "post_date", "link"]
   )
 
+  puts "Wordpress posts retrieved"
+
   wp_articles.each do |wp_article|
     if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
       response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
