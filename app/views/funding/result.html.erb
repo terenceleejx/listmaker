@@ -1,29 +1,30 @@
 <div class="row">
   <div class="result large-8 columns" style="color:black">
-    <h2>Funding last week</h2>
+    <h2>TKTK startup funding rounds in Asia last week (DATE)</h2>
     <div style="font-size:0.9em">
     	<p><em>Tags: funding, Funding in Asia, Startup Funding, Weekly Funding News</em></p>
     	<p><em>HTML code:</em></p>
-    	<%=h "<img class=\"aligncenter size-full wp-image-169099\" alt=\"FUNDING_WEEKLY\" src=\"http://www.techinasia.com/wp-content/uploads/2014/03/FUNDING_WEEKLY.png\" width=\"720\" height=\"363\" /><p>It’s back to work this Monday morning, and here’s a recap on the funding news that took place last week.</p>" %><br><br>
-    	<% @article_count = 1 %>
+    	<%=h "<img class=\"aligncenter size-full wp-image-169099\" alt=\"FUNDING_WEEKLY\" src=\"http://www.techinasia.com/wp-content/uploads/2014/03/FUNDING_WEEKLY.png\" width=\"720\" height=\"363\" />" %>
+      <br><br>
+      SUMMARY
+      <br><br>
+    	<%# @article_count = 1 %>
 	    <% @articles.each do |article| %>
 		    <%# 'next' goes to the next iteration, 'break' exist the loop %>
 		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false || article.headline.include?("startup funding rounds") || article.startup == false %>
-		    <strong><%= @article_count %>. <a href="<%= article.url %>"><%=h "<h2><a href=\"" %><%= article.url %><%=h "\">" %>STARTUP NAME | <%= article.country %><%=h "</a></h2>" %></strong></a>
+		    <strong><%#= @article_count %>##NUMBER. **[STARTUP NAME | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)</strong>**
         <br><br>
   	    <% if article.summary1 == "nil" %>
           Opps. Article summarization failed. Add it manually in Wordpress later.
   	    <% else %>
-  	    	<%=h "<p>" %>
           <%= article.summary1 %>&nbsp;
           <%= article.summary2 %>&nbsp;
-          <%= article.summary3 %> (View Techlist profile)
-          <%=h "</p>" %>
+          <%= article.summary3 %> (Techlist profile)
   	    <% end %>
         <br><br><br>
-        <% @article_count += 1 %>
+        <%# @article_count += 1 %>
 	    <% end %>
-	    <%=h "<p><em>" %>(Editing by TKTK)<%=h "</em></p>" %>
+	    (Editing by TKTK)  
 	    <br><br><br>
 	  </div>
   </div>
