@@ -11,7 +11,7 @@
     	<%# @article_count = 1 %>
 	    <% @articles.each do |article| %>
 		    <%# 'next' goes to the next iteration, 'break' exist the loop %>
-		    <% next if (Time.now - 604800).to_date >= article.date || article.funding == false || article.headline.include?("startup funding rounds") || article.startup == false %>
+		    <% next if (Time.now - 777600).to_date >= article.date || article.funding == false || article.headline.include?("startup funding rounds") || article.startup == false %>
 		    <strong><%#= @article_count %>##NUMBER. **[STARTUP NAME | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)</strong>**
         <br><br>
   	    <% if article.summary1 == "nil" %>
