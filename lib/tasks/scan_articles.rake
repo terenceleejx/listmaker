@@ -57,7 +57,7 @@ task :scan_articles => :environment do
 
       wp_article["terms"].each do |term|
         @is_china = false
-        if term.fetch("name").include? "china"
+        if term.fetch("name").include? "China"
           @is_china = true
         end
         break if @is_china == true
