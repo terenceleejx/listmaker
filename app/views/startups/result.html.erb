@@ -5,7 +5,7 @@
 	      <% @articles.each do |article| %>
 	        <% next if article.headline.include? "startups in Asia that caught" %>
 	        <% if (Time.now - 604800).to_date <= article.date && article.startup == true %>
-	          <% if article.summary.nil? == false %>
+	          <% if article.summary %>
 			        ###NUMBER. [STARTUP | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)
 			        <br><br>
 			        <% article.summary.each do |sentence| %>
