@@ -7,7 +7,9 @@
 	        <% if (Time.now - 604800).to_date <= article.date && article.startup == true %>
 		        ###NUMBER. [STARTUP | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)
 		        <br><br>
-		        <%= article.summary1 + " " + article.summary2 + " " + article.summary3 %>
+		        <% article.summary.each do |sentence| %>
+              <%= sentence %>&nbsp;
+            <% end %>
 		        <br><br>
 		        ***
 		        <br><br>

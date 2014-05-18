@@ -14,12 +14,12 @@
 		    <% next if (Time.now - 777600).to_date >= article.date || article.funding == false || article.headline.include?("startup funding rounds") || article.startup == false %>
 		    <strong><%#= @article_count %>##NUMBER. **[STARTUP NAME | <%= article.country %>](<a href="<%= article.url %>"><%= article.url %></a>)</strong>**
         <br><br>
-  	    <% if article.summary1 == "nil" %>
+  	    <% if article.summary == ["Summarization failed."] %>
           Opps. Article summarization failed. Add it manually in Wordpress later.
   	    <% else %>
-          <%= article.summary1 %>&nbsp;
-          <%= article.summary2 %>&nbsp;
-          <%= article.summary3 %> ([Techlist profile](http://www.techlist.asia/))
+          <% article.summary.each do |sentence| %>
+            <%= sentence %>&nbsp;
+          <% end %>&nbsp;([Techlist profile](http://www.techlist.asia/))
   	    <% end %>
         <br><br><br>
         <%# @article_count += 1 %>

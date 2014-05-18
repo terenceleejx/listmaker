@@ -4,17 +4,18 @@
     <% wp = Rubypress::Client.new(:host => "techinasia.com", :username => @username, :password => @password) %>
     <%# test if username or password is correct. If not, exception raised. %>
     <% wp.getOptions %>
-    <% @china_articles.each do |china_article| %>
-      <h3 class="headline" style="cursor: pointer;" value="<%= china_article.url %>"><%= china_article.headline %></h3>
+    <% @articles.each do |article| %>
+      <% next if (Time.now - 777600).to_date >= article.date || article.china == false %>
+      <h3 class="headline" style="cursor: pointer;" value="<%= article.url %>"><%= article.headline %></h3>
       <br>
-      <p>Date: <%= china_article.date %></p>
-  	  <% if china_article.summary1 == "nil" %>
+      <p>Date: <%= article.date %></p>
+    	<% if article.summary == ["Summarization failed."] %>
         Opps. Article summarization failed. Add it manually in Wordpress later.
-  	  <% else %>
-        <span class ="summary" style="cursor: pointer;"><%= china_article.summary1 %></span><br><br>
-        <span class ="summary" style="cursor: pointer;"><%= china_article.summary2 %></span><br><br>
-        <span class ="summary" style="cursor: pointer;"><%= china_article.summary3 %></span><br><br>
-  	  <% end %>
+    	<% else %>
+        <% article.summary.each do |sentence| %>
+          <span class ="summary" style="cursor: pointer;"><%= sentence %></span><br><br>
+        <% end %>
+    	<% end %>
       <br><br>
     <% end %>
   </div>

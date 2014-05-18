@@ -20,20 +20,18 @@ task :scan_articles => :environment do
 
   wp_articles.each do |wp_article|
     if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
-      response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
+      summary_url = "https://aylien-text.p.mashape.com/summarize?url=" + CGI::escape(wp_article["link"])
+      response = Unirest::get summary_url, 
         headers: { 
           "X-Mashape-Authorization" => Figaro.env.mashape_auth
-        },
-        parameters: { 
-          "url" => wp_article["link"]
         }
 
       puts "Articles summarized."
 
-      wpsummary = response.body["summary"]
+      puts wpsummary = response.body["sentences"]
 
       if wpsummary.nil? == true
-        wpsummary = ["nil", "nil", "nil"]
+        wpsummary = ["Summarization failed."]
       end
 
       # determines country of startup type of article
@@ -57,48 +55,27 @@ task :scan_articles => :environment do
         break if @is_funding == true
       end
 
+      wp_article["terms"].each do |term|
+        @is_china = false
+        if term.fetch("name").include? "china"
+          @is_china = true
+        end
+        break if @is_china == true
+      end
+
       Article.create({
           :headline => wp_article["post_title"],
-          :summary1 => wpsummary[0], 
-          :summary2 => wpsummary[1],
-          :summary3 => wpsummary[2],
+          :summary => wpsummary,
           :date => wp_article["post_date"].to_date(),
           :url => wp_article["link"],
           :country => @startup_country,
           :funding => @is_funding,
-          :startup => @is_startup
+          :startup => @is_startup,
+          :china => @is_china
         })
     end
   end
 
-  puts "first scanning completed"
+  puts "Scanning completed"
 
-  wp_articles.each do |wp_article|
-  	if wp_article["terms"].any? {|x| x["name"] == "China"} == true and 
-       wp_article["post_date"].to_date >= t and 
-       ChinaArticle.exists?(:headline => wp_article["post_title"]) == false
-
-       response = Unirest::post "https://newsco-article-summary.p.mashape.com/summary.json", 
-         headers: { 
-           "X-Mashape-Authorization" => Figaro.env.mashape_auth
-         },
-         parameters: { 
-           "url" => wp_article["link"]
-         }
-       puts "China article summarized."
-       wpsummary = response.body["summary"]
-       if wpsummary.nil? == true
-         wpsummary = ["nil", "nil", "nil"]
-       end
-
-       ChinaArticle.create({:headline => wp_article["post_title"], 
-                            :summary1 => wpsummary[0], 
-                            :summary2 => wpsummary[1],
-                            :summary3 => wpsummary[2],
-                            :date => wp_article["post_date"].to_date(),
-                            :url => wp_article["link"]
-                          })
-       puts "China article saved."
-    end
-  end
 end
