@@ -1,17 +1,32 @@
 desc "Scan Tech in Asia's Google Analytics for pageview stats"
 task :scan_GA => :environment do
-	client = OAuth2::Client.new(Figaro.env.legato_oauth_client_id, Figaro.env.legato_oauth_secret_key, {
-	  :authorize_url => 'https://accounts.google.com/o/oauth2/auth',
-	  :token_url => 'https://accounts.google.com/o/oauth2/token'
-	})
-	client.auth_code.authorize_url({
-	  :scope => 'https://www.googleapis.com/auth/analytics.readonly',
-	  :redirect_uri => 'http://localhost',
-	  :access_type => 'offline'
-	})
-	access_token = client.auth_code.get_token(Figaro.env.legato_oauth_auth_code, :redirect_uri => 'http://localhost')
+	require 'google/api_client'
+	def service_account_user(scope="https://www.googleapis.com/auth/analytics.readonly")
+	   client = Google::APIClient.new(
+	     :application_name => "Listmaker",
+	     :application_version => "2.0"
+	   )
+	   key = OpenSSL::PKey::RSA.new(Figaro.env.google_private_key, "notasecret")
+	   service_account = Google::APIClient::JWTAsserter.new(Figaro.env.google_app_email_address, scope, key)
+	   client.authorization = service_account.authorize
+	   oauth_client = OAuth2::Client.new("", "", {
+	      :authorize_url => 'https://accounts.google.com/o/oauth2/auth',
+	      :token_url => 'https://accounts.google.com/o/oauth2/token'
+	   })
+	   token = OAuth2::AccessToken.new(oauth_client, client.authorization.access_token)
+	   Legato::User.new(token)
+	end
 
-	response_json = access_token.get('https://www.googleapis.com/analytics/v3/management/accounts').body
+	class Pageviews
+		extend Legato::Model
 
-	JSON.parse(response_json)
+		metrics :pageviews
+		dimensions :pagepath
+		filter :one_pagepath, &lambda {|pagepath| matches(:pagepath, pagepath)}
+	end
+
+	profile = service_account_user.profiles.first
+	results = Pageviews.results(profile)
+	puts results.one_pagepath("/meet-hope-technik-singapores-engineering-commandos/", profile).first
+
 end

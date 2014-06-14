@@ -63,3 +63,7 @@ end
 gem "devise"
 
 gem 'omniauth-google-oauth2', '~> 0.2.4'
+
+gem 'google-api-client', '~> 0.7.1'
+
+gem 'legato', '~> 0.3.0'
