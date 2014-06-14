@@ -8,7 +8,7 @@ task :scan_articles => :environment do
 
   puts "login successful"
 
-  t = (Time.now - 259200).to_date
+  t = (Time.now - 345600).to_date
 
   wp_articles = wp.getPosts(
     blog_id: "0", 
