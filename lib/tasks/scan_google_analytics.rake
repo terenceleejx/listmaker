@@ -53,6 +53,7 @@ task :scan_GA => :environment do
 		articles.each do |article|
 			if article.url.include?(result["pagepath"]) && result["pagepath"] != ""
 				article.pageviews = result["pageviews"]
+				article.save
 				puts "This article has #{article.pageviews} pageviews."
 			end
 		end
