@@ -5,11 +5,11 @@
     <%# test if username or password is correct. If not, exception raised. %>
     <% wp.getOptions %>
     <% @articles.each do |article| %>
-      <% next if (Time.now - 777600).to_date >= article.date || article.china == false %>
+      <% next if (Time.now - 691200).to_date >= article.date || article.china == false %>
       <h3 class="headline" style="cursor: pointer;" value="<%= article.url %>"><%= article.headline %></h3>
       <br>
       <p>Date: <%= article.date %></p>
-      <p>Pageviews: <%= article.pageviews %></p>
+      <p>Pageviews: <%= number_with_delimiter(article.pageviews, :delimiter => ',') %></p>
     	<% if article.summary == false %>
         Opps. Article summarization failed. Add it manually in Wordpress later.
     	<% else %>
