@@ -9,6 +9,7 @@
       <h3 class="headline" style="cursor: pointer;" value="<%= article.url %>"><%= article.headline %></h3>
       <br>
       <p>Date: <%= article.date %></p>
+      <p>Pageviews: <%= article.pageviews %></p>
     	<% if article.summary == false %>
         Opps. Article summarization failed. Add it manually in Wordpress later.
     	<% else %>
