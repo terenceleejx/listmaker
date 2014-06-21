@@ -8,7 +8,7 @@ class CtwController < ApplicationController
 	def result
 	  @username = params[:username]
 	  @password = params[:password]
-	  @articles = Article.order(pageviews: :desc).order(date: :desc).first(200)
+	  @articles = Article.order(pageviews: :desc).order(date: :desc)
 	end
 	def complete
 	  @wptitle = params[:wptitle]
