@@ -4,6 +4,6 @@ Listmaker is a tool customized for technology news website Tech in Asia(http://w
 
 Everyday, Listmaker scans Tech in Asia for articles and stores them in a database. The app extracts a summary and number of pageviews for each article.
 
-The app presents users with either markdown or HTML code which they can use for an article. It also has an interface to pick stories and generate an article draft within Wordpress, complete with the right formatting.
+The app presents users with either markdown or HTML code which they can use for an article. It also has an interface to curate stories into a formatted list article within Wordpress.
 
 An example of an article created with Listmaker: http://www.techinasia.com/china-tech-news-2013-december-15/
