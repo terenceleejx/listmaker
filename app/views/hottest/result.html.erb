@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="result large-8 columns" style="color:black">
+    <h2>TKTK of our hottest tech stories, lists, and features for your weekend reading</h2>
+    <div style="font-size:0.9em">
+      <p><em>SEO headline: TKTK hot tech stories, lists, and features (<%= Date.today.strftime("%d %B %Y") %>)</em></p>
+      <p><em>SEO description: Here are some of the hottest tech stories and most popular features on the site this week. (<%= Date.today.strftime("%d %B %Y") %>)</em></p>
+      <p><em>Tag: sotw</em></p>
+      <p><em>HTML code:</em></p>
+      <%=h "<img class=\"aligncenter size-full wp-image-174555\" src=\"http://www.techinasia.com/wp-content/uploads/2014/04/SOTW-weekend-reading.jpg\" alt=\"SOTW - weekend reading\" width=\"720\" height=\"309\" />" %>
+      <br><br>
+      INTRO GOES HERE
+      <br><br>
+      NEWS STORIES GO HERE
+      <br><br>
+      <%=h "<hr />" %>
+      <br><br>
+      <%=h "<h2 id=\"lists\">Lists</h2>" %>
+      <br><br>
+      LISTS GO HERE
+      <br><br>
+      <%=h "<hr />" %>
+      <br><br>
+      FEATURES GO HERE
+      <br><br>
+      <%=h "<h2 id=\"features\">Features</h2>" %>
+      <br><br>
+      <%=h "<hr />" %>
+      <br><br>
+      <%=h "<em>For other ways of reading us, perhaps try our <a href=\"http://www.techinasia.com/subscriptions/\">tailored RSS feeds</a>, or find us within Flipboard.</em>" %>
+      <br><br>
+      <% @articles.each do |article| %>
+        <% next if (Time.now - 691200).to_date >= article.date %>
+        <strong><%=h "<h3 id=\"#{article.url.gsub("-", "_").gsub("http://www.techinasia.com/", "").gsub("/", "")}\">NUMBER. <a href=\"" %>
+          <a href="<%= article.url %>"><%= "#{article.url}" %></a><%=h "\">#{article.headline}</a></h3>" %></strong>
+        <br><br>
+        <% if article.summary == false %>
+          Opps. Article summarization failed. Add it manually in Wordpress later.
+        <% else %>
+          <% article.summary.each do |sentence| %>
+            <%= sentence %>&nbsp;
+          <% end %>
+        <% end %>
+        <br><br><br>
+      <% end %>
+      <br><br><br>
+    </div>
+  </div>
+</div>
