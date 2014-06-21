@@ -1,14 +1,9 @@
 == README
 
-Listmaker is a tool customized for technology news website Tech in Asia(http://www.techinasia.com) to create list articles while minimizing the need to do manual formatting in HTML or in Wordpress. The app uses the XML-RPC Wordpress API(http://codex.wordpress.org/XML-RPC_WordPress_API/) and the Article Summary API by Newsco(https://www.mashape.com/newsco/article-summary-url-or-text-using-ml-and-nlp#!documentation).
+Listmaker is a tool customized for technology news website Tech in Asia(http://www.techinasia.com) to create list articles while minimizing the need to do manual formatting in HTML. The app uses data from Wordpress, Google Analytics, and an article summarization API.
 
-Here's how it works:
+Everyday, Listmaker scans Tech in Asia for articles and stores them in a database. The app extracts a summary and number of pageviews for each article.
 
-* Everyday, it scans Tech in Asia for articles with a certain tag and stores them in a database. The scheduled task also involves summarizing each article.
-* Once a user logs in, he will see a list of relevant articles and their summaries.
-* They can pick which articles and summaries they want to use, key in the intro text, and publish the result as a draft on Wordpress.
-* The user would then log into Wordpress and do some final formatting.
+The app presents users with either markdown or HTML code which they can use for an article. It also has an interface to pick stories and generate an article draft within Wordpress, complete with the right formatting.
 
 An example of an article created with Listmaker: http://www.techinasia.com/china-tech-news-2013-december-15/
-
-A future version of this app could involve using the Google Analytics API to filter articles according to traffic. This allows users to curate content based on popularity. Want to implement Listmaker for your site? Contact me on LinkedIn: http://sg.linkedin.com/in/terenceleejx.
