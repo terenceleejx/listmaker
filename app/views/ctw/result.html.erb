@@ -5,7 +5,7 @@
     <%# test if username or password is correct. If not, exception raised. %>
     <% wp.getOptions %>
     <% @articles.each do |article| %>
-      <% next if (Time.now - 691200).in_time_zone.to_date >= article.date || article.china == false || article.pageviews.blank? == true %>
+      <% next if (Time.now - 691200).in_time_zone('Singapore').to_date >= article.date || article.china == false || article.pageviews.blank? == true %>
       <h3 class="headline" style="cursor: pointer;" value="<%= article.url %>"><%= article.headline %></h3>
       <br>
       <p>Date: <%= article.date %></p>
