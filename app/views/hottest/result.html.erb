@@ -29,7 +29,7 @@
       <%=h "<em>For other ways of reading us, perhaps try our <a href=\"http://www.techinasia.com/subscriptions/\">tailored RSS feeds</a>, or find us within Flipboard.</em>" %>
       <br><br>
       <% @articles.each do |article| %>
-        <% next if (Time.now - 662400).to_date >= article.date || article.pageviews.blank? == true %>
+        <% next if (Time.now - 691200).to_date >= article.date || article.pageviews.blank? == true %>
         <strong><%=h "<h3 id=\"#{article.url.gsub("-", "_").gsub("http://www.techinasia.com/", "").gsub("/", "")}\">NUMBER. <a href=\"" %>
           <a href="<%= article.url %>"><%= "#{article.url}" %></a><%=h "\">#{article.headline}</a></h3>" %></strong>
         <br><br>
