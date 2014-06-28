@@ -19,8 +19,6 @@ task :scan_articles => :environment do
   puts "Wordpress posts retrieved"
 
   wp_articles.each do |wp_article|
-    @intro_array = CGI.unescapeHTML(ActionView::Base.full_sanitizer.sanitize(wp_article["post_content"].gsub(/\n/, ' '))).split('. ')
-    puts @intro = @intro_array[0].strip + '. ' + @intro_array[1] + '.'
     if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
       summary_url = "https://aylien-text.p.mashape.com/summarize?url=" + CGI::escape(wp_article["link"])
       response = Unirest::get summary_url, 
@@ -36,7 +34,8 @@ task :scan_articles => :environment do
         wpsummary = ["Summarization failed."]
       end
 
-      puts @intro = wp_article["post_content"][280]
+      @intro_array = CGI.unescapeHTML(ActionView::Base.full_sanitizer.sanitize(wp_article["post_content"].gsub(/\n/, ' '))).split('. ')
+      @intro = @intro_array[0].strip + '. ' + @intro_array[1] + '.'
 
       # determines country of startup type of article
       wp_article["terms"].each do |term|
