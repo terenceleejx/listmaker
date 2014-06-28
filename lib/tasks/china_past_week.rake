@@ -8,6 +8,8 @@ task :china_past_week => :environment do
 
   puts "login successful"
 
+  puts articles = Article.where("date >= ?", 7.days.ago.to_date).where("china" => true)
+
   wp_articles = wp.editPost(
     post_id: 182690, 
     content: {

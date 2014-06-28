@@ -13,12 +13,14 @@ task :scan_articles => :environment do
   wp_articles = wp.getPosts(
     blog_id: "0", 
     filter: {post_type: "post", post_status: "publish", number: 30, orderby: "date", order: "DESC"}, 
-    fields: ["post_title", "terms", "post_date", "link"]
+    fields: ["post_title", "terms", "post_date", "link", "post_excerpt", "post_content"]
   )
 
   puts "Wordpress posts retrieved"
 
   wp_articles.each do |wp_article|
+    @intro_array = CGI.unescapeHTML(ActionView::Base.full_sanitizer.sanitize(wp_article["post_content"].gsub(/\n/, ' '))).split('. ')
+    puts @intro = @intro_array[0].strip + '. ' + @intro_array[1] + '.'
     if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
       summary_url = "https://aylien-text.p.mashape.com/summarize?url=" + CGI::escape(wp_article["link"])
       response = Unirest::get summary_url, 
@@ -33,6 +35,8 @@ task :scan_articles => :environment do
       if wpsummary.nil? == true
         wpsummary = ["Summarization failed."]
       end
+
+      puts @intro = wp_article["post_content"][280]
 
       # determines country of startup type of article
       wp_article["terms"].each do |term|
@@ -71,7 +75,9 @@ task :scan_articles => :environment do
           :country => @startup_country,
           :funding => @is_funding,
           :startup => @is_startup,
-          :china => @is_china
+          :china => @is_china,
+          :excerpt => wp_article["post_excerpt"],
+          :intro => @intro
         })
     end
   end
