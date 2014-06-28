@@ -32,7 +32,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem "rubypress", "1.0.4"
+gem "rubypress", "1.0.7"
 
 gem "unirest", "1.1.1"
 

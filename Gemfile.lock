@@ -171,7 +171,9 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     retriable (1.4.1)
-    rubypress (1.0.4)
+    retryable-rb (1.1.0)
+    rubypress (1.0.7)
+      retryable-rb
     safe_yaml (0.9.7)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -235,7 +237,7 @@ DEPENDENCIES
   pg (= 0.17.0)
   rails (= 4.0.1)
   rails_admin (= 0.6.0)
-  rubypress (= 1.0.4)
+  rubypress (= 1.0.7)
   sass-rails (~> 4.0.0)
   sdoc
   turbolinks
