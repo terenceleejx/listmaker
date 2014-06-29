@@ -22,7 +22,7 @@ task :china_past_week => :environment do
     end
   end
 
-  post_content += "For our full spread of China coverage, you might like to subscribe to our <a href=\"http://www.techinasia.com/tag/china/feed/\">China RSS feed</a>."
+  post_content += "This page refreshes everyday. Check back regularly to see what the top stories are. For our full spread of China coverage, you might like to subscribe to our <a href=\"http://www.techinasia.com/tag/china/feed/\">China RSS feed</a>."
 
   wp_articles = wp.editPost(
     post_id: 182690, 
