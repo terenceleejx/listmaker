@@ -28,7 +28,8 @@ task :china_past_week => :environment do
     post_id: 183027, 
     content: {
       post_date: DateTime.now - 1.day,
-      post_content: post_content
+      post_content: post_content,
+      post_excerpt: "Here are the most read stories about China's tech developments in the past week."
     }
   )
 end
