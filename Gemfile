@@ -60,7 +60,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 
-gem "devise"
+gem 'devise', '~> 3.2.4'
 
 gem 'omniauth-google-oauth2', '~> 0.2.4'
 
