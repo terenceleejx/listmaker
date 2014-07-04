@@ -13,13 +13,20 @@ task :china_past_week => :environment do
   post_content = "<img src=\"http://cdn.techinasia.com/wp-content/uploads/2013/03/China-tech-news-this-week-v8.jpg\" alt=\"CTW - China tech news this week\" width=\"1000\" height=\"593\" />
     <p>Here are the most read stories about China's tech developments in the past week.</p><hr />"
 
+  count = 0
+
   articles.each do |article| 
-    post_content += "<h3><a href=\"#{article["url"]}\">#{article["headline"]}</a></h3><p>"
-    if article["excerpt"].blank? == false
-      post_content += "#{article["excerpt"]}</p><hr />"
-    else
-      post_content += "#{article["intro"]}</p><hr />"
+    if article["headline"] != "Must-read stories in China this past week" && article["pageviews"].blank? == false
+      post_content += "<h3><a href=\"#{article["url"]}\">#{article["headline"]}</a></h3><p>"
+      if article["excerpt"].blank? == false 
+        post_content += "#{article["excerpt"]}</p><hr />"
+      else
+        post_content += "#{article["intro"]}</p><hr />"
+      end
+      puts "#{article["headline"]}"
+      count += 1
     end
+    break if count == 10
   end
 
   post_content += "For our full spread of China coverage, you might like to subscribe to our <a href=\"http://www.techinasia.com/tag/china/feed/\">China RSS feed</a>."
