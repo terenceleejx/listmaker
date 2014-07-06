@@ -16,7 +16,7 @@ task :china_past_week => :environment do
   count = 0
 
   articles.each do |article| 
-    if article["headline"] != "Must-read stories in China this past week" && article["pageviews"].blank? == false
+    if article["headline"] != "10 must-read tech stories in China this week" && article["pageviews"].blank? == false
       post_content += "<h3><a href=\"#{article["url"]}\">#{article["headline"]}</a></h3><p>"
       if article["excerpt"].blank? == false 
         post_content += "#{article["excerpt"]}</p><hr />"
