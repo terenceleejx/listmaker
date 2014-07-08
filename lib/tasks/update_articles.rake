@@ -1,5 +1,5 @@
-desc "Updates Top articles about China in the past week"
-task :china_past_week => :environment do
+desc "Updates list articles"
+task :update_articles => :environment do
   wp = Rubypress::Client.new(
   	:host => "techinasia.com", 
   	:username => Figaro.env.techinasia_username, 
