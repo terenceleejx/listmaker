@@ -52,7 +52,7 @@ task :update_articles => :environment do
   count = 0
 
   articles.each do |article| 
-    if article["headline"] != "20 of our hottest tech stories for your weekend reading" && article["pageviews"].blank? == false
+    if article["headline"] != "20 of our hottest tech stories on Asia in the past week" && article["pageviews"].blank? == false
       post_content += "<h3>#{count + 1}. <a href=\"#{article["url"]}\">#{article["headline"]}</a></h3><p>"
       if article["excerpt"].blank? == false 
         post_content += "#{article["excerpt"]}</p><hr />"
