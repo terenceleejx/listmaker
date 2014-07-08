@@ -47,7 +47,7 @@ task :update_articles => :environment do
   articles = Article.where("date >= ?", 7.days.ago.to_date).order(pageviews: :desc)
 
   post_content = "<img class=\"aligncenter size-full wp-image-174555\" src=\"http://cdn.techinasia.com/wp-content/uploads/2014/04/SOTW-weekend-reading.jpg?8346b2\" alt=\"SOTW - weekend reading\" width=\"720\" height=\"309\" />
-    <p>Miss out on the best Asia tech news from the past seven days? Worry not, we've got you covered. Here's our regular roundup of the week's hottest stories.</p><hr />"
+    <p>Miss out on the best Asia tech news from the past seven days? Worry not, we've got you covered. Here's our roundup of the week's top stories, sorted by popularity.</p><hr />"
 
   count = 0
 
