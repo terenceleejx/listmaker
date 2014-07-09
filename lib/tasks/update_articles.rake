@@ -47,7 +47,7 @@ task :update_articles => :environment do
   articles = Article.where("date >= ?", 7.days.ago.to_date).order(pageviews: :desc)
 
   post_content = "<img class=\"aligncenter size-full wp-image-174555\" src=\"http://cdn.techinasia.com/wp-content/uploads/2014/04/SOTW-weekend-reading.jpg?8346b2\" alt=\"SOTW - weekend reading\" width=\"720\" height=\"309\" />
-    <p>Miss out on the best Asia tech news from the past seven days? Worry not, we've got you covered. Here's our roundup of the week's top stories, sorted by popularity.</p><hr />"
+    <p>Missed out on the best Asia tech news from the past seven days? Worry not, we've got you covered. Here's our roundup of the week's top stories, sorted by popularity.</p><hr />"
 
   count = 0
 
@@ -67,12 +67,12 @@ task :update_articles => :environment do
 
   post_content += "<p><em>For other ways of reading us, try our <a href=\"http://www.techinasia.com/subscriptions/\" >tailored RSS feeds</a>, or find us within Flipboard.</em></p>"
 
-    wp_articles = wp.editPost(
+  wp_articles = wp.editPost(
     post_id: 183788, 
     content: {
       post_date: DateTime.now - 1.day,
       post_content: post_content,
-      post_excerpt: "Miss out on the best Asia tech news from the past seven days? Worry not, here's our roundup of the week's hottest stories."
+      post_excerpt: "Missed out on the best Asia tech news from the past seven days? Worry not, here's our roundup of the week's hottest stories."
     }
   )
 
