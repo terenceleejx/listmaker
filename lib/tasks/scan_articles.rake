@@ -19,7 +19,7 @@ task :scan_articles => :environment do
   puts "Wordpress posts retrieved"
 
   wp_articles.each do |wp_article|
-    if wp_article["post_date"].to_date >= t && Article.exists?(:headline => wp_article["post_title"]) == false
+    if wp_article["post_date"].to_date >= t && Article.exists?(:url => wp_article["link"]) == false
       summary_url = "https://aylien-text.p.mashape.com/summarize?url=" + CGI::escape(wp_article["link"])
       response = Unirest::get summary_url, 
         headers: { 
