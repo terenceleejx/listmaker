@@ -1,3 +1,4 @@
 class Article < ActiveRecord::Base
-	serialize :summary, :tags
+	serialize :summary
+	serialize :tags
 end

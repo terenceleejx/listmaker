@@ -49,6 +49,7 @@ GEM
       sass (~> 3.2.19)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    crunchbase (0.4.0)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -251,6 +252,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   compass-rails (= 1.0.3)
+  crunchbase (~> 0.4.0)
   devise (~> 3.2.4)
   figaro (= 0.7.0)
   google-api-client (~> 0.7.1)
