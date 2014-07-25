@@ -1,9 +1,9 @@
 desc "Updates list articles"
 task :update_articles => :environment do
   wp = Rubypress::Client.new(
-  	:host => "techinasia.com", 
-  	:username => Figaro.env.techinasia_username, 
-  	:password => Figaro.env.techinasia_password
+    :host => "techinasia.com", 
+    :username => Figaro.env.techinasia_username, 
+    :password => Figaro.env.techinasia_password
   )
 
   puts "login successful"
@@ -13,12 +13,12 @@ task :update_articles => :environment do
   articles = Article.where("date >= ?", 7.days.ago.to_date).where("china" => true).order(pageviews: :desc)
 
   post_content = "<img src=\"http://cdn.techinasia.com/wp-content/uploads/2013/03/China-tech-news-this-week-v8.jpg\" alt=\"CTW - China tech news this week\" width=\"1000\" height=\"593\" />
-    <p>Here are the most read stories about China's tech developments in the past week.</p><hr />"
+    <p>Here are the most read stories about China's recent tech developments that you should know about.</p><hr />"
 
   count = 0
 
   articles.each do |article| 
-    if article["headline"] != "10 must-read tech stories in China this week" && article["pageviews"].blank? == false
+    if article["headline"] != "10 must-read tech stories in China this past week" && article["pageviews"].blank? == false
       post_content += "<h3>#{count + 1}. <a href=\"#{article["url"]}\">#{article["headline"]}</a></h3><p>"
       if article["excerpt"].blank? == false 
         post_content += "#{article["excerpt"]}</p><hr />"
@@ -46,7 +46,7 @@ task :update_articles => :environment do
 
   articles = Article.where("date >= ?", 7.days.ago.to_date).order(pageviews: :desc)
 
-  post_content = "<img class=\"aligncenter size-full wp-image-174555\" src=\"http://cdn.techinasia.com/wp-content/uploads/2014/04/SOTW-weekend-reading.jpg?8346b2\" alt=\"SOTW - weekend reading\" width=\"720\" height=\"309\" />
+  post_content = "<img class=\"aligncenter size-full wp-image-186084\" src=\"http://www.techinasia.com/wp-content/uploads/2014/07/Hottest-stories.jpg\" alt=\"SOTW - weekend reading\" width=\"1000\" height=\"500\" />
     <p>Missed out on the best Asia tech news from the past seven days? Worry not, we've got you covered. Here's our roundup of the week's top stories, sorted by popularity.</p><hr />"
 
   count = 0
