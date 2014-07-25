@@ -5,9 +5,10 @@ task :update_cb => :environment do
   articles = Article.where("date >= ?", 7.days.ago.to_date)
   articles.each do |article|
   	if article["crunchbased"] != true
-  	 article["terms"].each do |term|
-
-  	 end
+  	  article["terms"].each do |term|
+  	  	Crunchbase::Company.get("#{term}")
+  	  	Crunchbase::FinancialOrganization.get("#{term}")
+  	  end
   	end
   end
 end
