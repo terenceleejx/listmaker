@@ -1,12 +1,6 @@
 desc "Update Crunchbase with Tech in Asia articles"
 task :update_cb => :environment do
   agent = Mechanize.new
-  page = agent.get("http://crunchbase.com/login")
-  page = page.form_with(id: "new_user") do |f|
-    f.field_with(id: "user_email").value = Figaro.env.crunchbase_login
-    f.field_with(id: "user_password").value = Figaro.env.crunchbase_password
-  end.submit
-  pp page
   articles = Article.where("date >= ?", 7.days.ago.to_date)
   filtered_words = ["startups-in", "google-plus", "leaf", "marketing", "mobile", "social-media"]
   articles.each do |article|
@@ -22,7 +16,11 @@ task :update_cb => :environment do
             end
           end
           if count == 0
-            page = agent.get("http://crunchbase.com/organization/#{tag_name}")
+            page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/edit").form_with(id: "new_user") do |f|
+              f.field_with(id: "user_email").value = Figaro.env.crunchbase_login
+              f.field_with(id: "user_password").value = Figaro.env.crunchbase_password
+            end.submit
+            pp page
             puts "#{tag_name} found"
           end
         end
