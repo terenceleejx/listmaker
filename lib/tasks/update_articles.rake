@@ -33,7 +33,7 @@ task :update_articles => :environment do
 
   post_content += "For our full spread of China coverage, you might like to subscribe to our <a href=\"http://www.techinasia.com/tag/china/feed/\">China RSS feed</a>."
 
-  wp_articles = wp.editPost(
+  wp.editPost(
     post_id: 183027, 
     content: {
       post_date: DateTime.now - 1.day,
@@ -67,7 +67,7 @@ task :update_articles => :environment do
 
   post_content += "<p><em>For other ways of reading us, try our <a href=\"http://www.techinasia.com/subscriptions/\" >tailored RSS feeds</a>, or find us within Flipboard.</em></p>"
 
-  wp_articles = wp.editPost(
+  wp.editPost(
     post_id: 183788, 
     content: {
       post_date: DateTime.now - 1.day,
