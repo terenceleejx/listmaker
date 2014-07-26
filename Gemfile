@@ -71,5 +71,3 @@ gem 'legato', '~> 0.3.0'
 gem 'mechanize', '~> 2.7.2'
 
 gem 'mime-types', '~> 1.17.2'
-
-gem 'crunchbase', '~> 0.4.0'
