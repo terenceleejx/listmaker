@@ -76,7 +76,8 @@ task :scan_articles => :environment do
           :startup => @is_startup,
           :china => @is_china,
           :excerpt => wp_article["post_excerpt"],
-          :intro => @intro
+          :intro => @intro,
+          :tags => wp_article["terms"]
         })
     end
   end

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.0.0'	
+ruby '2.1.0'	
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.1.0'
 
 # Use sqlite3 as the database for Active Record
 gem "pg", "0.17.0"
@@ -40,7 +40,7 @@ gem 'newrelic_rpm'
 
 gem "figaro", "0.7.0"
 
-gem "rails_admin", "0.6.0"
+gem "rails_admin", "0.6.2"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -67,3 +67,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.4'
 gem 'google-api-client', '~> 0.7.1'
 
 gem 'legato', '~> 0.3.0'
+
+gem 'mechanize', '~> 2.7.2'
+
+gem 'mime-types', '~> 1.17.2'

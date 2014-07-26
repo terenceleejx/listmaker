@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140628072725) do
+ActiveRecord::Schema.define(version: 20140720104231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20140628072725) do
   create_table "articles", force: true do |t|
     t.string  "headline"
     t.string  "url"
-    t.text    "summary",   default: "[''nil'']"
+    t.text    "summary",     default: "['nil']"
     t.string  "country"
     t.boolean "funding"
     t.boolean "startup"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20140628072725) do
     t.integer "pageviews"
     t.text    "excerpt"
     t.text    "intro"
+    t.boolean "crunchbased"
+    t.text    "tags"
   end
 
   create_table "rails_admin_histories", force: true do |t|
