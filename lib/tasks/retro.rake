@@ -9,7 +9,8 @@ task :retro => :environment do
 	count = 0
 	wp_articles = wp.getPosts(
 		blog_id: "0",
-		filter: {post_type: "post", post_status: "publish", orderby: "date", order: "DESC", number: 2700},
+		filter: {post_type: "post", post_status: "publish", orderby: "date", order: "DESC", number: 2700}, 
+		#2700 is near the max before an error occurs
 		fields: ["post_id", "link"]
 	)
 	articles.each do |article|

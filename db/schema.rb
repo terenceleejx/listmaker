@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720104231) do
+ActiveRecord::Schema.define(version: 20140727143836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140720104231) do
     t.integer "pageviews"
     t.text    "excerpt"
     t.text    "intro"
-    t.boolean "crunchbased"
+    t.string  "crunchbased"
     t.text    "tags"
   end
 
