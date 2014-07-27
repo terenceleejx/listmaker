@@ -24,7 +24,7 @@ task :update_cb => :environment do
           end
           if count == 0
             page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-            if page.parser.include?(article["url"]) == false
+            if page.body.include?(article["url"]) == false
               page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
               page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
                 f.field_with(id: "root_base_entity_properties_url").value = article["url"]
@@ -36,8 +36,7 @@ task :update_cb => :environment do
                 end
               end.submit
               page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-              sleep(3)
-              if page.parser.include?(article["url"]) == true
+              if page.body.include?(article["url"]) == true
                 puts "YAY! #{tag_name} link added"
                 article.crunchbased_articles.create(
                     :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
