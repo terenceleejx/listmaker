@@ -8,43 +8,47 @@ task :update_cb => :environment do
   articles = Article.all#where("date >= ?", 2.days.ago.to_date)
   filtered_words = ["startups-in", "google-plus", "leaf", "marketing", "mobile", "social-media", "china", 
     "arena", "meetup", "business", "e-commerce", "venture-capital", "social-media-marketing", "line", "ipo",
-    "travel", "nyse", "travel", "healthcare", "taxi"]
+    "travel", "nyse", "travel", "healthcare", "taxi", "bat", "media", "movies", "outsourcing", "southeast-asia", 
+    "saas", "bitcoin", "government", "startups", "singapore", "india", "funding", "japan", "china", "asia", 
+    "opinion", "news"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
   	if article["crunchbased"] != true
   	  article["tags"].each do |tag|
         puts "Evaluating #{tag["name"]}."
         tag_name = tag["name"].gsub(" ", "-").gsub("#", "").downcase
-        sleep(5)
-        response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
-        if response.body["data"]["type"] != nil
-          count = 0
-          filtered_words.each do |word|
-            if response.body["data"]["properties"]["permalink"] == word
-              count += 1
+        if filtered_words.include? tag_name == false
+          sleep(5)
+          response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
+          if response.body["data"]["type"] != nil
+            count = 0
+            filtered_words.each do |word|
+              if response.body["data"]["properties"]["permalink"] == word
+                count += 1
+              end
             end
-          end
-          if count == 0
-            page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-            if page.body.include?(article["url"]) == false
-              page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
-              page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
-                f.field_with(id: "root_base_entity_properties_url").value = article["url"]
-                f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
-                if article["excerpt"].blank? == true
-                  f.field_with(id: "root_base_entity_properties_summary").value = article["summary"]
-                else
-                  f.field_with(id: "root_base_entity_properties_summary").value = article["excerpt"]
-                end
-              end.submit
+            if count == 0
               page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-              if page.body.include?(article["url"]) == true
-                puts "YAY! #{tag_name} link added"
-                article.crunchbased_articles.create(
-                    :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
-                  )
-                article["crunchbased"] = true
-                article.save
+              if page.body.include?(article["url"]) == false
+                page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
+                page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
+                  f.field_with(id: "root_base_entity_properties_url").value = article["url"]
+                  f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
+                  if article["excerpt"].blank? == true
+                    f.field_with(id: "root_base_entity_properties_summary").value = article["summary"]
+                  else
+                    f.field_with(id: "root_base_entity_properties_summary").value = article["excerpt"]
+                  end
+                end.submit
+                page = agent.get("http://crunchbase.com/organization/#{tag_name}")
+                if page.body.include?(article["url"]) == true
+                  puts "YAY! #{tag_name} link added"
+                  article.crunchbased_articles.create(
+                      :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
+                    )
+                  article["crunchbased"] = true
+                  article.save
+                end
               end
             end
           end
