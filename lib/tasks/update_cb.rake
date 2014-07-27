@@ -5,7 +5,7 @@ task :update_cb => :environment do
     f.field_with(id: "user_email").value = Figaro.env.crunchbase_login
     f.field_with(id: "user_password").value = Figaro.env.crunchbase_password
   end.submit
-  articles = Article.where("date >= ?", 2.days.ago.to_date)
+  articles = Article.all#where("date >= ?", 2.days.ago.to_date)
   filtered_words = ["startups-in", "google-plus", "leaf", "marketing", "mobile", "social-media", "china", 
     "arena", "meetup", "business", "e-commerce", "venture-capital"]
   articles.each do |article|
