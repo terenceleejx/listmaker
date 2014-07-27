@@ -35,6 +35,7 @@ task :update_cb => :environment do
                   f.field_with(id: "root_base_entity_properties_summary").value = article["excerpt"]
                 end
               end.submit
+              pp agent.page
               page = agent.get("http://crunchbase.com/organization/#{tag_name}")
               if page.parser.include?(article["url"]) == true
                 puts "YAY! #{tag_name} link added"
