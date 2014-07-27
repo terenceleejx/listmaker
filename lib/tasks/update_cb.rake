@@ -26,7 +26,7 @@ task :update_cb => :environment do
             page = agent.get("http://crunchbase.com/organization/#{tag_name}")
             if page.parser.include?(article["url"]) == false
               page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
-              page = page.form_with(action: "http://crunchbase.com/organization/#{tag_name}/press") do |f|
+              page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
                 f.field_with(id: "root_base_entity_properties_url").value = article["url"]
                 f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
                 if article["excerpt"].blank? == true
