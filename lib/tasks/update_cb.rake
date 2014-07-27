@@ -7,7 +7,8 @@ task :update_cb => :environment do
   end.submit
   articles = Article.all#where("date >= ?", 2.days.ago.to_date)
   filtered_words = ["startups-in", "google-plus", "leaf", "marketing", "mobile", "social-media", "china", 
-    "arena", "meetup", "business", "e-commerce", "venture-capital", "social-media-marketing", "line"]
+    "arena", "meetup", "business", "e-commerce", "venture-capital", "social-media-marketing", "line", "ipo",
+    "travel", "nyse", "travel", "healthcare", "taxi"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
   	if article["crunchbased"] != true
