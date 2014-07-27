@@ -36,7 +36,10 @@ task :update_cb => :environment do
                 end
               end.submit
               puts "YAY! #{tag_name} link added"
-              article["crunchbased"] = "http://crunchbase.com/organization/#{tag_name}"
+              article.crunchbased_articles.create(
+                  :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
+                )
+              article["crunchbased"] = true
               article.save
             end
           end
