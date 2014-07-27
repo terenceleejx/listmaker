@@ -7,12 +7,12 @@ task :update_cb => :environment do
   end.submit
   articles = Article.all#where("date >= ?", 2.days.ago.to_date)
   filtered_words = ["startups-in", "google-plus", "leaf", "marketing", "mobile", "social-media", "china", 
-    "arena", "meetup", "business", "e-commerce", "venture-capital"]
+    "arena", "meetup", "business", "e-commerce", "venture-capital", "social-media-marketing"]
   articles.each do |article|
   	if article["crunchbased"] != true
   	  article["tags"].each do |tag|
+        puts "Evaluating #{tag}."
         tag_name = tag["name"].gsub(" ", "-").gsub("#", "")
-        puts "#{tag_name} cleaned."
         response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
         if response.body["data"]["type"] != nil
           count = 0
