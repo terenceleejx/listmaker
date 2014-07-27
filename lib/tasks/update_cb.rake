@@ -13,7 +13,7 @@ task :update_cb => :environment do
   	if article["crunchbased"] != true
   	  article["tags"].each do |tag|
         puts "Evaluating #{tag["name"]}."
-        tag_name = tag["name"].gsub(" ", "-").gsub("#", "")
+        tag_name = tag["name"].gsub(" ", "-").gsub("#", "").downcase
         response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
         if response.body["data"]["type"] != nil
           count = 0
