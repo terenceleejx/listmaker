@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727143836) do
+ActiveRecord::Schema.define(version: 20140727163807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,13 @@ ActiveRecord::Schema.define(version: 20140727143836) do
     t.integer "pageviews"
     t.text    "excerpt"
     t.text    "intro"
-    t.string  "crunchbased"
     t.text    "tags"
+    t.boolean "crunchbased"
+  end
+
+  create_table "crunchbased_articles", force: true do |t|
+    t.string  "crunchbase_url"
+    t.integer "article_id"
   end
 
   create_table "rails_admin_histories", force: true do |t|
