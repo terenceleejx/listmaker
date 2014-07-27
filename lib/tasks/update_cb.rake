@@ -24,23 +24,25 @@ task :update_cb => :environment do
           if count == 0
             page = agent.get("http://crunchbase.com/organization/#{tag_name}")
             if page.parser.include?(article["url"]) == false
-              page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/edit")
-              page = page.link_with(href: "/organization/#{tag_name}/press/new").click
+              page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
               page = page.forms.first do |f|
-                f.field_with(id: "root[base_entity][properties][url]").value = article["url"]
-                f.field_with(id: "root[base_entity][properties][title]").value = article["headline"]
+                f.field_with(id: "root_base_entity_properties_url").value = article["url"]
+                f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
                 if article["excerpt"].blank? == true
-                  f.field_with(id: "root[base_entity][properties][summary]").value = article["summary"]
+                  f.field_with(id: "root_base_entity_properties_summary").value = article["summary"]
                 else
-                  f.field_with(id: "root[base_entity][properties][summary]").value = article["excerpt"]
+                  f.field_with(id: "root_base_entity_properties_summary").value = article["excerpt"]
                 end
               end.submit
-              puts "YAY! #{tag_name} link added"
-              article.crunchbased_articles.create(
-                  :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
-                )
-              article["crunchbased"] = true
-              article.save
+              page = agent.get("http://crunchbase.com/organization/#{tag_name}")
+              if page.parser.include?(article["url"]) == true
+                puts "YAY! #{tag_name} link added"
+                article.crunchbased_articles.create(
+                    :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
+                  )
+                article["crunchbased"] = true
+                article.save
+              end
             end
           end
         end
