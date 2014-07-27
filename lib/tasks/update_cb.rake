@@ -36,7 +36,7 @@ task :update_cb => :environment do
                 end
               end.submit
               page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-              sleep(5.seconds)
+              sleep(3)
               if page.parser.include?(article["url"]) == true
                 puts "YAY! #{tag_name} link added"
                 article.crunchbased_articles.create(
