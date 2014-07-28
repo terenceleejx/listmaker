@@ -10,11 +10,12 @@ task :update_cb => :environment do
     "arena", "meetup", "business", "e-commerce", "ecommerce", "venture-capital", "social-media-marketing", 
     "line", "ipo", "travel", "nyse", "travel", "healthcare", "taxi", "bat", "media", "movies", "outsourcing", 
     "southeast-asia", "saas", "bitcoin", "government", "startups", "singapore", "israel", "india", "japan", 
-    "china", "asia", "hong kong", "indonesia", "taiwan", "opinion", "news", "data series", "web", "gadgets", "funding", 
-    "announcements", "acquisition"]
+    "china", "asia", "hong kong", "indonesia", "taiwan", "opinion", "news", "web", "gadgets", "funding", 
+    "announcements", "acquisition", "acquisitions", "health", "fun", "mobile-apps", "game", "games", "smartphones", "mcommerce",
+    "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
-  	if article["crunchbased"] != true
+  	if article["crunchbased"] != true && article["tags"].blank? == false
   	  article["tags"].each do |tag|
         tag_name = tag["name"].gsub(" ", "-").gsub("#", "").gsub(".", "-").downcase
         if filtered_words.include?(tag_name) == false
