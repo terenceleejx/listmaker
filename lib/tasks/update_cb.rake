@@ -15,6 +15,7 @@ task :update_cb => :environment do
     "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
+    puts article["headline"]
   	if article["crunchbased"] != true && article["tags"].blank? == false
   	  article["tags"].each do |tag|
         tag_name = tag["name"].gsub(" ", "-").gsub("#", "").gsub(".", "-").downcase
