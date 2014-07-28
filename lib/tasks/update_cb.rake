@@ -12,13 +12,14 @@ task :update_cb => :environment do
     "southeast-asia", "saas", "bitcoin", "government", "startups", "singapore", "israel", "india", "japan", 
     "china", "asia", "hong kong", "indonesia", "taiwan", "opinion", "news", "web", "gadgets", "funding", 
     "announcements", "acquisition", "acquisitions", "health", "fun", "mobile-apps", "game", "games", "smartphones", "mcommerce",
-    "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs"]
+    "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs", "real-estate", "longform", "ad-tech",
+    "internet-of-things"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
     puts article["headline"]
   	if article["crunchbased"] != true && article["tags"].blank? == false
   	  article["tags"].each do |tag|
-        tag_name = tag["name"].gsub(" ", "-").gsub("#", "").gsub(".", "-").downcase
+        tag_name = CGI::escape(tag["name"].gsub(" ", "-").gsub("#", "").gsub(".", "-").downcase)
         if filtered_words.include?(tag_name) == false
           puts "Evaluating #{tag["name"]}."
           sleep(5)
