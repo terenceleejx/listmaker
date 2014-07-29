@@ -13,7 +13,7 @@ task :update_cb => :environment do
     "china", "asia", "hong kong", "indonesia", "taiwan", "opinion", "news", "web", "gadgets", "funding", 
     "announcements", "acquisition", "acquisitions", "health", "fun", "mobile-apps", "game", "games", "smartphones", "mcommerce",
     "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs", "real-estate", "longform", "ad-tech",
-    "internet-of-things"]
+    "internet-of-things", "ios", "angel-investor"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
     puts article["headline"]
@@ -22,7 +22,7 @@ task :update_cb => :environment do
         tag_name = CGI::escape(tag["name"].gsub(" ", "-").gsub("#", "").gsub(".", "-").downcase)
         if filtered_words.include?(tag_name) == false
           puts "Evaluating #{tag["name"]}."
-          sleep(5)
+          sleep(3)
           response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
           if response.body["data"]["type"] != nil
             count = 0
