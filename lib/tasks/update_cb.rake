@@ -23,38 +23,42 @@ task :update_cb => :environment do
         if filtered_words.include?(tag_name) == false
           puts "Evaluating #{tag["name"]}."
           sleep(4)
-          response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
-          if response.body["data"]["type"].blank? == false
-            count = 0
-            filtered_words.each do |word|
-              if response.body["data"]["properties"]["permalink"] == word
-                count += 1
+          begin
+            response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
+            if response.body["data"]["type"].blank? == false
+              count = 0
+              filtered_words.each do |word|
+                if response.body["data"]["properties"]["permalink"] == word
+                  count += 1
+                end
               end
-            end
-            if count == 0
-              page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-              if page.body.include?(article["url"]) == false
-                page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
-                page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
-                  f.field_with(id: "root_base_entity_properties_url").value = article["url"]
-                  f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
-                  if article["excerpt"].blank? == true
-                    f.field_with(id: "root_base_entity_properties_summary").value = article["summary"]
-                  else
-                    f.field_with(id: "root_base_entity_properties_summary").value = article["excerpt"]
-                  end
-                end.submit
+              if count == 0
                 page = agent.get("http://crunchbase.com/organization/#{tag_name}")
-                if page.body.include?(article["url"]) == true
-                  puts "YAY! #{tag_name} link added"
-                  article.crunchbased_articles.create(
-                      :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
-                    )
-                  article["crunchbased"] = true
-                  article.save
+                if page.body.include?(article["url"]) == false
+                  page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
+                  page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
+                    f.field_with(id: "root_base_entity_properties_url").value = article["url"]
+                    f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
+                    if article["excerpt"].blank? == true
+                      f.field_with(id: "root_base_entity_properties_summary").value = article["summary"]
+                    else
+                      f.field_with(id: "root_base_entity_properties_summary").value = article["excerpt"]
+                    end
+                  end.submit
+                  page = agent.get("http://crunchbase.com/organization/#{tag_name}")
+                  if page.body.include?(article["url"]) == true
+                    puts "YAY! #{tag_name} link added"
+                    article.crunchbased_articles.create(
+                        :crunchbase_url => "http://crunchbase.com/organization/#{tag_name}"
+                      )
+                    article["crunchbased"] = true
+                    article.save
+                  end
                 end
               end
             end
+          rescue
+            retry
           end
         end
   	  end
