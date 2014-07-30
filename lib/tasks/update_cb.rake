@@ -5,7 +5,7 @@ task :update_cb => :environment do
     f.field_with(id: "user_email").value = Figaro.env.crunchbase_login
     f.field_with(id: "user_password").value = Figaro.env.crunchbase_password
   end.submit
-  articles = Article.all#where("date >= ?", 2.days.ago.to_date)
+  articles = Article.where("date >= ?", 2.days.ago.to_date)
   filtered_words = ["startups-in", "google-plus", "leaf", "marketing", "mobile", "social-media", "china", 
     "arena", "meetup", "business", "e-commerce", "ecommerce", "venture-capital", "social-media-marketing", 
     "line", "ipo", "travel", "nyse", "travel", "healthcare", "taxi", "bat", "media", "movies", "outsourcing", 
@@ -13,7 +13,8 @@ task :update_cb => :environment do
     "china", "asia", "hong kong", "indonesia", "taiwan", "opinion", "news", "web", "gadgets", "funding", 
     "announcements", "acquisition", "acquisitions", "health", "fun", "mobile-apps", "game", "games", "smartphones", "mcommerce",
     "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs", "real-estate", "longform", "ad-tech",
-    "internet-of-things", "ios", "angel-investor"]
+    "internet-of-things", "ios", "angel-investor", "interview", "fashion", "advice", "philippines", "thailand",
+    "lists", "censorship", "pakistan", "crowdsourcing", "malaysia", "advertising", "vietnam"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
     puts article["headline"]
