@@ -22,7 +22,7 @@ task :update_cb => :environment do
         tag_name = CGI::escape(tag["name"].gsub(" ", "-").gsub("#", "").gsub(".", "-").downcase)
         if filtered_words.include?(tag_name) == false
           puts "Evaluating #{tag["name"]}."
-          sleep(3)
+          sleep(4)
           response = Unirest.get "http://api.crunchbase.com/v/2/organization/#{tag_name}?user_key=#{Figaro.env.crunchbase_key}"
           if response.body["data"]["type"].blank? == false
             count = 0
