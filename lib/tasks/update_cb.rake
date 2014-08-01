@@ -14,7 +14,7 @@ task :update_cb => :environment do
     "announcements", "acquisition", "acquisitions", "health", "fun", "mobile-apps", "game", "games", "smartphones", "mcommerce",
     "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs", "real-estate", "longform", "ad-tech",
     "internet-of-things", "ios", "angel-investor", "interview", "fashion", "advice", "philippines", "thailand",
-    "lists", "censorship", "pakistan", "crowdsourcing", "malaysia", "advertising", "vietnam"]
+    "lists", "censorship", "pakistan", "crowdsourcing", "malaysia", "advertising", "vietnam", "medtech", "cgi"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
     puts article["headline"]
