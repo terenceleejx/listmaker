@@ -1,7 +1,9 @@
 desc "Update Crunchbase with Tech in Asia articles"
 task :update_cb => :environment do
   agent = Mechanize.new
-  page = agent.get("http://www.crunchbase.com/login").form_with(id: "new_user") do |f|
+  agent.user_agent_alias = 'iPhone'
+  page = agent.get("http://crunchbase.com/login").form_with(id: "new_user") do |f|
+    sleep(4)
     f.field_with(id: "user_email").value = Figaro.env.crunchbase_login
     f.field_with(id: "user_password").value = Figaro.env.crunchbase_password
   end.submit
@@ -14,7 +16,8 @@ task :update_cb => :environment do
     "announcements", "acquisition", "acquisitions", "health", "fun", "mobile-apps", "game", "games", "smartphones", "mcommerce",
     "3g", "people", "events", "earnings", "crowdfunding", "dolphin", "lbs", "real-estate", "longform", "ad-tech",
     "internet-of-things", "ios", "angel-investor", "interview", "fashion", "advice", "philippines", "thailand",
-    "lists", "censorship", "pakistan", "crowdsourcing", "malaysia", "advertising", "vietnam", "medtech", "cgi", "silicon-valley"]
+    "lists", "censorship", "pakistan", "crowdsourcing", "malaysia", "advertising", "vietnam", "medtech", "cgi", "silicon-valley ",
+    "private-equity", "business-cards", "space", "data", "mobility"]
   ## need to figure out ways to account for Line etc
   articles.each do |article|
     puts article["headline"]
@@ -35,8 +38,10 @@ task :update_cb => :environment do
               end
               if count == 0
                 page = agent.get("http://crunchbase.com/organization/#{tag_name}")
+                sleep(2)
                 if page.body.include?(article["url"]) == false
                   page = agent.get("http://crunchbase.com/organization/#{tag_name}/press/new")
+                  sleep(2)
                   page = page.form_with(action: "/organization/#{tag_name}/press") do |f|
                     f.field_with(id: "root_base_entity_properties_url").value = article["url"]
                     f.field_with(id: "root_base_entity_properties_title").value = article["headline"]
@@ -47,6 +52,7 @@ task :update_cb => :environment do
                     end
                   end.submit
                   page = agent.get("http://crunchbase.com/organization/#{tag_name}")
+                  sleep(2)
                   if page.body.include?(article["url"]) == true
                     puts "YAY! #{tag_name} link added"
                     article.crunchbased_articles.create(
