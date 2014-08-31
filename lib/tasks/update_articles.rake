@@ -1,7 +1,7 @@
 desc "Updates list articles"
 task :update_articles => :environment do
   wp = Rubypress::Client.new(
-    :host => "techinasia.com/", 
+    :host => "www.techinasia.com", 
     :username => Figaro.env.techinasia_username, 
     :password => Figaro.env.techinasia_password
   )
