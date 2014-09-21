@@ -1,7 +1,7 @@
 desc "Scans Tech in Asia for articles, and puts them in the database"
 task :scan_articles => :environment do
   wp = Rubypress::Client.new(
-  	:host => "www.techinasia.com/core", 
+  	:host => "techinasia.com", 
   	:username => Figaro.env.techinasia_username, 
   	:password => Figaro.env.techinasia_password
   )
