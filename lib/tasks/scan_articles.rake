@@ -1,18 +1,18 @@
 desc "Scans Tech in Asia for articles, and puts them in the database"
 task :scan_articles => :environment do
   wp = Rubypress::Client.new(
-  	:host => "www.techinasia.com", 
+  	:host => "www.techinasia.com/core", 
   	:username => Figaro.env.techinasia_username, 
   	:password => Figaro.env.techinasia_password
   )
 
   puts "login successful"
 
-  t = (Time.now - 600800).to_date
+  t = (Time.now - 172800).to_date
 
   wp_articles = wp.getPosts(
     blog_id: "0", 
-    filter: {post_type: "post", post_status: "publish", number: 100, orderby: "date", order: "DESC"}, 
+    filter: {post_type: "post", post_status: "publish", number: 30, orderby: "date", order: "DESC"}, 
     fields: ["post_title", "terms", "post_date", "link", "post_excerpt", "post_content"]
   )
 
